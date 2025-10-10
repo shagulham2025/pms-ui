@@ -3,6 +3,73 @@
 @import 'font-awesome/css/font-awesome.min.css';
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
+/* Make Angular Material input fields look like Bootstrap 5 text boxes */
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  background-color: #fff;
+  padding: 0.375rem 0.75rem;
+  min-height: 38px;
+  box-shadow: none;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex:focus-within {
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+}
+
+.mat-form-field-appearance-fill .mat-form-field-outline,
+.mat-form-field-appearance-fill .mat-form-field-outline-thick {
+  display: none;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-infix {
+  padding: 0 !important;
+  border: none !important;
+}
+
+.mat-form-field-label {
+  color: #6c757d !important;
+  font-size: 1rem !important;
+  left: 0.75rem !important;
+  top: 0.5rem !important;
+}
+
+.mat-input-element {
+  font-size: 1rem;
+  color: #212529;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  height: 1.5em;
+  box-shadow: none;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-suffix {
+  margin-right: 0.75rem;
+}
+
+/* Common style for Angular Material input to look like Bootstrap text box */
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  background-color: #fff;
+  padding: 0.375rem 0.75rem;
+  box-shadow: none;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex:focus-within {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.mat-form-field-appearance-fill .mat-form-field-outline {
+  display: none;
+}
+
 .nav-item.active>.nav-link,
 .nav-item .nav-link.active {
   background-color: #3dbd51 !important;
