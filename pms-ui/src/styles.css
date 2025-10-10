@@ -1,0 +1,53 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import './assert/css/sb-admin-2.css';
+@import 'font-awesome/css/font-awesome.min.css';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+.nav-item.active>.nav-link,
+.nav-item .nav-link.active {
+  background-color: #3dbd51 !important;
+  color: #fff !important;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.nav-item {
+  cursor: pointer !important;
+}
+
+.btn-link {
+  font-weight: 400;
+  color: rgb(65 141 65) !important;
+  text-decoration: none;
+}
+
+.mdc-button .mat-mdc-button-base .mat-mdc-button .btn .btn-primary {
+  color: #fff !important;
+  background-color: #3dbd51 !important;
+  border-color: #3dbd51 !important;
+}
+
+.btn .btn-warn {
+  color: #fff !important;
+  background-color: #f6c23e !important;
+  border-color: #f6c23e !important;
+}
+
+.mat-sort-header-content,
+.mat-paginator-range-label,
+.mat-paginator-page-size,
+.mat-paginator-icon,
+.mat-paginator-navigation-previous,
+.mat-paginator-navigation-next,
+.mat-paginator-navigation-first,
+.mat-paginator-navigation-last,
+.mat-mdc-form-field-label,
+.mat-mdc-header-cell,
+.mat-mdc-form-field-infix,
+.btn,
+.mat-mdc-input-element,
+.mat-mdc-button,
+.mat-mdc-row {
+  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif !important;
+  font-size: 12px !important;
+}

@@ -1,0 +1,18 @@
+/* Common font family and font size for the app */
+body, html {
+  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif !important;
+  font-size: 12px !important;
+  background: #fafbfc;
+  color: #222;
+}
+
+.custom-sidebar-bg-green {
+  background: linear-gradient(180deg, #418d41  0%, #418d41  100%) !important; /* Microsoft green gradient */
+}
+
+.custom-sidebar-bg-green:not(:disabled):not(.disabled):active, .custom-sidebar-bg-green:not(:disabled):not(.disabled).active,
+.show > .custom-sidebar-bg-green.dropdown-toggle {
+  color: #fff;
+  background-color: #418d41;
+  border-color: #418d41;
+}

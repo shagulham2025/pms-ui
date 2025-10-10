@@ -1,0 +1,22 @@
+.custom-edit-btn {
+  background-color: #107c10;
+  color: #fff;
+  border-radius: 4px;
+  padding: 4px 16px;
+  margin-right: 8px;
+  transition: background 0.2s;
+}
+.custom-edit-btn:hover {
+  background-color: #0e6c0e;
+}
+
+.custom-delete-btn {
+  background-color: #e81123;
+  color: #fff;
+  border-radius: 4px;
+  padding: 4px 16px;
+  transition: background 0.2s;
+}
+.custom-delete-btn:hover {
+  background-color: #c50f1f;
+}
