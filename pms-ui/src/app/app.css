@@ -1,18 +1,62 @@
-/* Common font family and font size for the app */
-body, html {
-  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif !important;
-  font-size: 12px !important;
-  background: #fafbfc;
-  color: #222;
+body {
+  font-family: 'Roboto', Arial, sans-serif;
 }
 
-.custom-sidebar-bg-green {
-  background: linear-gradient(180deg, #418d41  0%, #418d41  100%) !important; /* Microsoft green gradient */
+.sidenav-container {
+  height: 100vh;
 }
 
-.custom-sidebar-bg-green:not(:disabled):not(.disabled):active, .custom-sidebar-bg-green:not(:disabled):not(.disabled).active,
-.show > .custom-sidebar-bg-green.dropdown-toggle {
-  color: #fff;
-  background-color: #418d41;
-  border-color: #418d41;
+.sidenav {
+  width: 240px;
+  background-color: #fff;
+}
+
+.header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.footer {
+  height: 56px;
+  justify-content: center;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.content-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+mat-expansion-panel {
+  background: transparent;
+  box-shadow: none;
+}
+
+mat-expansion-panel-header {
+  padding: 0 16px;
+}
+
+mat-nav-list a {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  color: #333;
+  text-decoration: none;
+}
+
+mat-nav-list a:hover {
+  background-color: #f1f1f1;
+  border-left: 4px solid #1976d2;
+}
+
+mat-icon {
+  font-size: 20px;
 }
