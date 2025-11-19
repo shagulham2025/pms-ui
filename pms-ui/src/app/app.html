@@ -1,15 +1,18 @@
 <mat-sidenav-container class="sidenav-container">
   <!-- Sidebar -->
-  <mat-sidenav #drawer [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile || isSidebarOpen" class="sidenav">
-    <ul class="list-unstyled m-0">
-      <li *ngFor="let item of menuItems">
+  <mat-sidenav #drawer [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile || isSidebarOpen" class="sidenav">
+    <ul class="list-unstyled m-0 mt-5">
+      @for (item of menuItems; track item.label) {
+      <li [ngClass]="{ 'active-link': isRouteActive(item.route) }">
         <a [routerLink]="item.route" class="nav-link d-flex align-items-center px-3 py-2">
           <i [class]="item.icon"></i>
           <span class="ms-2">{{ item.label }}</span>
         </a>
       </li>
+      }
     </ul>
   </mat-sidenav>
+
 
   <!-- Main Content -->
   <mat-sidenav-content class="main-content">
@@ -18,7 +21,7 @@
       <button mat-icon-button (click)="toggleSidebar()">
         <mat-icon>menu</mat-icon>
       </button>
-      <span class="ms-2">My Healthcare App</span>
+      <span class="ms-2 header-font">My Healthcare App</span>
       <span class="flex-grow-1"></span>
 
       <!-- User Dropdown -->
@@ -26,15 +29,15 @@
         <mat-icon>account_circle</mat-icon>
       </button>
       <mat-menu #userMenu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item class="header-setting">
           <mat-icon>person</mat-icon>
           <span>User Info</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item class="header-setting">
           <mat-icon>settings</mat-icon>
           <span>Settings</span>
         </button>
-        <button mat-menu-item (click)="logout()">
+        <button mat-menu-item class="header-setting" (click)="logout()">
           <mat-icon>logout</mat-icon>
           <span>Logout</span>
         </button>

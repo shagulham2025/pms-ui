@@ -1,7 +1,7 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, NO_ERRORS_SCHEMA, signal } from '@angular/core';
 import { Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { ConfigurationModule } from './component/configuration/configuration.module';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,6 +20,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
   imports: [
     CommonModule,
     RouterOutlet,
+    RouterLink,
     ConfigurationModule,
     MatSidenavModule,
     MatToolbarModule,
@@ -49,36 +50,6 @@ export class App {
     { label: 'Pharmacy', icon: 'fa fa-medkit', route: '/pharmacy' }
   ];
 
-  // menuItems = [
-  //   {
-  //     label: 'Dashboard',
-  //     icon: 'dashboard',
-  //     children: [
-  //       { label: 'Overview', icon: 'insights', route: '/dashboard/overview' },
-  //       { label: 'Reports', icon: 'bar_chart', route: '/dashboard/reports' }
-  //     ]
-  //   },
-  //   {
-  //     label: 'Patients',
-  //     icon: 'people',
-  //     children: [
-  //       { label: 'All Patients', icon: 'group', route: '/patients' },
-  //       { label: 'Add Patient', icon: 'person_add', route: '/patients/add' }
-  //     ]
-  //   },
-  //   {
-  //     label: 'Appointments',
-  //     icon: 'event',
-  //     children: [
-  //       { label: 'Upcoming', icon: 'event_available', route: '/appointments/upcoming' },
-  //       { label: 'History', icon: 'history', route: '/appointments/history' }
-  //     ]
-  //   }
-  // ];
-
-
-
-
   constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object) { }
 
   @HostListener('window:resize')
@@ -92,6 +63,11 @@ export class App {
     this.checkScreenSize();
   }
 
+  isRouteActive(path: string): boolean {
+    return this.router.url.startsWith(path);
+  }
+
+
   checkScreenSize() {
     if (isPlatformBrowser(this.platformId)) {
       this.isMobile = window.innerWidth < 768;
@@ -99,13 +75,11 @@ export class App {
   }
 
   toggleSidebar() {
-    debugger
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 
   logout() {
     console.log('Logging out...');
-    // Add logout logic here
   }
 
 
