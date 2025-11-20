@@ -1,7 +1,7 @@
 <div class="table-container">
 
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <input type="text" class="form-control w-25" (input)="applyFilter($event)" placeholder="Search by name or email">
+    <input matInput (input)="applyFilter($event)" placeholder="Search by name or email">
     <button class="btn btn-primary ms-2" (click)="openAddUserDialog()">
       <i class="fa fa-plus"></i> Add User
     </button>

@@ -3,7 +3,7 @@
   <mat-sidenav #drawer [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile || isSidebarOpen" class="sidenav">
     <ul class="list-unstyled m-0 mt-5">
       @for (item of menuItems; track item.label) {
-      <li [ngClass]="{ 'active-link': isRouteActive(item.route) }">
+      <li [ngClass]="{ 'active-link': isRouteActive(item.route) }" class="mt-2">
         <a [routerLink]="item.route" class="nav-link d-flex align-items-center px-3 py-2">
           <i [class]="item.icon"></i>
           <span class="ms-2">{{ item.label }}</span>

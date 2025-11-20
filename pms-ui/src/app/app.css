@@ -17,8 +17,14 @@ body {
   align-items: center;
 }
 
+.mat-toolbar.mat-accent{
+  background: white !important;
+}
+
 .footer {
-  height: 40px;
+  height: 30px;
+  color: black;
+  border-top: 1px solid gray;
   font-size: 15px !important;
   justify-content: center;
 }
@@ -55,7 +61,7 @@ mat-nav-list a {
 
 mat-nav-list a:hover {
   background-color: #f1f1f1;
-  border-left: 4px solid #1976d2;
+  border-left: 4px solid #3e843e;
 }
 
 mat-icon {
@@ -83,9 +89,13 @@ body{
   font-family: 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 }
 
+.mat-toolbar.mat-primary{
+  background-color: #3e843e !important; /* Microsoft green */
+}
+
 .active-link .nav-link {
   background-color: #e0f0ff;
-  border-left: 4px solid #0d6efd;
+  border-left: 4px solid #3e843e;
   font-weight: 500;
-  color: #0d6efd;
+  color: #3e843e;
 }
