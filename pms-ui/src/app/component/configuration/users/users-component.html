@@ -1,10 +1,17 @@
 <div class="table-container">
 
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <input matInput (input)="applyFilter($event)" placeholder="Search by name or email">
-    <button class="btn btn-primary ms-2" (click)="openAddUserDialog()">
-      <i class="fa fa-plus"></i> Add User
-    </button>
+  <div class="row col-auto">
+    <div class="col-9">
+      <mat-form-field class="w-50 mb-2">
+        <mat-label>Serach</mat-label>
+        <input matInput (input)="applyFilter($event)">
+      </mat-form-field>
+    </div>
+    <div class="col-3 p-3">
+      <button class="btn btn-primary ms-2 float-end" (click)="openAddUserDialog()">
+        <i class="fa fa-plus"></i> Add User
+      </button>
+    </div>
   </div>
 
   <div class="mat-elevation-z8">

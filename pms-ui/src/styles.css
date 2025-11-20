@@ -10,12 +10,43 @@
   font-size: 12px !important;
 }
 
-.mat-mdc-cell{
+.mat-mdc-cell {
   font-size: 12px !important;
   height: 40px !important;
 }
 
-.mat-sort-header-arrow{
+.mat-sort-header-arrow {
   color: #fff !important;
   font-size: 12px !important;
+}
+
+
+.mdc-text-field {
+  border: 1px solid #dad9d9 !important;
+  height: 50px !important;
+  font-size: 13px !important;
+  background: white !important;
+  font-family: 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+.mat-mdc-form-field-focus-overlay {
+   background: white !important;
+}
+
+.mat-mdc-menu-item-text {
+  font-size: 14px !important;
+  font-family: 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+
+.mdc-floating-label,
+.mat-mdc-option {
+  font-size: 13px !important;
+  font-family: 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+.btn-primary,
+.btn-secondary {
+  font-size: 13px !important;
+  font-family: 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
 }
