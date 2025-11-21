@@ -18,17 +18,17 @@ import { MatExpansionModule } from '@angular/material/expansion';
   selector: 'app-root',
   standalone: true,
   imports: [
+    MatIconModule,
+    MatListModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatExpansionModule,
     CommonModule,
     RouterOutlet,
     RouterLink,
     ConfigurationModule,
     MatSidenavModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatListModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatExpansionModule
+    MatToolbarModule
   ],
   templateUrl: './app.html',
   styleUrl: './app.css',

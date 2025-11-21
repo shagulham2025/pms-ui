@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Optional } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditUsersComponent } from './add-edit-users-component/add-edit-users-component';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,17 +12,22 @@ import { User } from '../../../model/user';
   selector: 'app-users-component',
   templateUrl: './users-component.html'
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['userId', 'fullName', 'email', 'role', 'department', 'designation', 'status'];
+  displayedColumns: string[] = ['userId', 'fullName', 'email', 'role', 'department', 'designation', 'status', 'actions'];
   dataSource = new MatTableDataSource<User>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private http: HttpClient, private dialog: MatDialog) { }
+  constructor(private http: HttpClient, @Optional() private dialog: MatDialog | null) { }
 
   openAddUserDialog(): void {
+    if (!this.dialog) {
+      console.warn('MatDialog is not available in injector. Cannot open dialog.');
+      return;
+    }
+
     this.dialog.open(AddEditUsersComponent, {
       width: '900px',
       data: {}
@@ -32,9 +37,12 @@ export class UsersComponent {
   ngOnInit(): void {
     this.http.get<User[]>('assert/mock-data/user-data.json').subscribe(data => {
       this.dataSource.data = data;
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event): void {

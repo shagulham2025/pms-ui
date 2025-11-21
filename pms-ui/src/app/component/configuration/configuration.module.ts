@@ -8,6 +8,7 @@ import { AddEditPropertiesComponent } from "./properties/add-edit-properties-com
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -28,14 +29,15 @@ import { MatNativeDateModule } from '@angular/material/core';
         MatTableModule,
         MatPaginatorModule,
         MatSortModule,
+        MatIconModule,
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
         MatDialogModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatDatepickerModule,
-    MatNativeDateModule
+        FormsModule,
+        ReactiveFormsModule,
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
     exports: [
 
