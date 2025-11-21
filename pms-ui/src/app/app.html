@@ -1,10 +1,10 @@
 <mat-sidenav-container class="sidenav-container">
   <!-- Sidebar -->
-  <mat-sidenav #drawer [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile || isSidebarOpen" class="sidenav">
+  <mat-sidenav #drawer [mode]="isMobile ? 'over' : 'side'" [opened]="isSidebarOpen || isMobile" class="sidenav">
     <ul class="list-unstyled m-0 mt-5">
       @for (item of menuItems; track item.label) {
       <li [ngClass]="{ 'active-link': isRouteActive(item.route) }" class="mt-2">
-        <a [routerLink]="item.route" class="nav-link d-flex align-items-center px-3 py-2">
+        <a [routerLink]="item.route" (click)="onMenuItemClick()" class="nav-link d-flex align-items-center px-3 py-2">
           <i [class]="item.icon"></i>
           <span class="ms-2">{{ item.label }}</span>
         </a>
@@ -19,19 +19,19 @@
     <!-- Header -->
     <mat-toolbar color="primary" class="header">
       <button mat-icon-button (click)="toggleSidebar()">
-        <mat-icon>menu</mat-icon>
+        <mat-icon class="f-18">menu</mat-icon>
       </button>
       <span class="ms-2 header-font">My Healthcare App</span>
       <span class="flex-grow-1"></span>
 
       <!-- User Dropdown -->
       <button mat-icon-button [matMenuTriggerFor]="userMenu">
-        <mat-icon>account_circle</mat-icon>
+        <mat-icon class="f-18">account_circle</mat-icon>
       </button>
       <mat-menu #userMenu="matMenu">
         <button mat-menu-item class="header-setting">
           <mat-icon>person</mat-icon>
-          <span>User Info</span>
+          <span class="mb-2">User Info</span>
         </button>
         <button mat-menu-item class="header-setting">
           <mat-icon>settings</mat-icon>

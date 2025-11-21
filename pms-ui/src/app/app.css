@@ -24,7 +24,7 @@ body {
 .footer {
   height: 30px;
   color: black;
-  border-top: 1px solid gray;
+  border-top: 1px solid #dfdfdf;
   font-size: 15px !important;
   justify-content: center;
 }
