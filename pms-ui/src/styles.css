@@ -34,7 +34,7 @@
 }
 
 .mat-mdc-form-field-focus-overlay {
-   background: white !important;
+  background: white !important;
 }
 
 .mat-mdc-menu-item-text {
@@ -44,7 +44,7 @@
 
 .mat-icon {
   font-size: 15px !important;
-    margin: 5px !important;
+  margin: 5px !important;
 }
 
 
@@ -60,6 +60,13 @@
   font-family: 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
 }
 
-.f-18{
+.f-18 {
   font-size: 18px !important;
+}
+
+.main-content {
+  background: white;
+  margin: 5px;
+  border: 1px solid #cecece;
+  border-radius: 6px;
 }
