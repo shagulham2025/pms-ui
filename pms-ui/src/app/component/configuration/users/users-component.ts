@@ -36,7 +36,19 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.http.get<User[]>('assert/mock-data/user-data.json').subscribe(data => {
-      this.dataSource.data = data;
+      this.dataSource.data = Array.from({ length: 100 }, (_, i) => {
+        const id = i + 1001;
+        return {
+          userId: id,
+          fullName: `User ${id}`,
+          email: `user${id}@example.com`,
+          role: ["Admin", "Doctor", "Nurse", "Receptionist", "Pharmacist"][i % 5],
+          department: ["HR", "Cardiology", "Pediatrics", "Front Desk", "Pharmacy"][i % 5],
+          designation: ["Manager", "Specialist", "Head", "Assistant", "Staff"][i % 5],
+          status: i % 2 === 0 ? "Active" : "Inactive",
+          actions: "Edit | Delete"
+        };
+      }) as any;
     });
   }
 
