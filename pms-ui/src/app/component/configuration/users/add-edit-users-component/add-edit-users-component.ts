@@ -38,7 +38,6 @@ export class AddEditUsersComponent implements OnInit {
 
   onSubmit(): void {
     if (this.userForm.valid) {
-      // Handle form submission, e.g., send data to API
       console.log('User Data:', this.userForm.value);
     } else {
       this.userForm.markAllAsTouched();
