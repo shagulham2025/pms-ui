@@ -66,7 +66,29 @@
 
 .main-content {
   background: white;
-  margin: 5px;
   border: 1px solid #cecece;
-  border-radius: 6px;
+}
+
+span,
+p,
+label {
+  font-family: 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+  font-size: 13px !important;
+}
+
+.mat-mdc-dialog-content>p {
+  color: #202020 !important;
+}
+
+.mat-mdc-dialog-title {
+  border-bottom: 1px solid #d7d7d7 !important;
+}
+
+.mat-mdc-dialog-content {
+  margin: 5px !important;
+  padding: 0px 0px 20px 25px !important;
+}
+
+.mat-mdc-dialog-actions {
+  border-top: 1px solid #d7d7d7 !important;
 }

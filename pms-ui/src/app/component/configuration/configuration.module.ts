@@ -4,7 +4,6 @@ import { PropertiesComponent } from "./properties/properties-component";
 import { UsersComponent } from "./users/users-component";
 import { AddEditUsersComponent } from "./users/add-edit-users-component/add-edit-users-component";
 import { AddEditPropertiesComponent } from "./properties/add-edit-properties-component/add-edit-properties-component";
-
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -16,6 +15,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ConfirmationDialog } from "../shared/confirmation-dialog/confirmation-dialog";
 
 @NgModule({
     declarations: [
@@ -37,7 +37,8 @@ import { MatNativeDateModule } from '@angular/material/core';
         FormsModule,
         ReactiveFormsModule,
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        ConfirmationDialog
     ],
     exports: [
 
