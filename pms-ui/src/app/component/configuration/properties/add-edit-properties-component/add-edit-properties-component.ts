@@ -1,10 +1,51 @@
-import { Component } from '@angular/core';
+
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfirmDialogData } from '../../../../model/confirm-dialog-data';
+
 
 @Component({
   standalone: false,
-  selector: 'app-add-edit-properties-component',
+  selector: 'add-edit-properties-component',
   templateUrl: './add-edit-properties-component.html'
 })
-export class AddEditPropertiesComponent {
+export class AddEditPropertiesComponent implements OnInit {
+  
+  userForm!: FormGroup;
+  isEdit: boolean = false;
 
+  constructor(private fb: FormBuilder,@Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData) {
+    //this.isEdit = data?.isEdit as;
+  }
+
+  ngOnInit(): void {
+    this.userForm = this.fb.group({
+      fullName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      phoneNumber: ['', Validators.required],
+      role: ['', Validators.required],
+      department: ['', Validators.required],
+      designation: ['', Validators.required],
+      username: ['', Validators.required],
+      accessLevel: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      status: ['', Validators.required],
+      createdDateTime: ['', Validators.required],
+      lastLogin: [''],
+      gender: ['', Validators.required],
+      dob: ['', Validators.required],
+      shiftSchedule: [''],
+      specialization: [''],
+      licenseNumber: [''],
+      emergencyContact: ['']
+    });
+  }
+
+  onSubmit(): void {
+    if (this.userForm.valid) {
+      console.log('User Data:', this.userForm.value);
+    } else {
+      this.userForm.markAllAsTouched();
+    }
+  }
 }
