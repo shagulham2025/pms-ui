@@ -1,6 +1,8 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfirmDialogData } from '../../../../model/confirm-dialog-data';
 
 
 @Component({
@@ -11,8 +13,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddEditUsersComponent implements OnInit {
   
   userForm!: FormGroup;
+  isEdit: boolean = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,@Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData) {
+    //this.isEdit = data?.isEdit as;
+  }
 
   ngOnInit(): void {
     this.userForm = this.fb.group({
