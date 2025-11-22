@@ -1,11 +1,11 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, NO_ERRORS_SCHEMA, signal } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, NO_ERRORS_SCHEMA, signal, ViewChild, AfterViewInit } from '@angular/core';
 import { Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet, NavigationEnd } from '@angular/router';
 import { ConfigurationModule } from './component/configuration/configuration.module';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSidenavModule, MatSidenav } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,24 +18,26 @@ import { MatExpansionModule } from '@angular/material/expansion';
   selector: 'app-root',
   standalone: true,
   imports: [
-    CommonModule,
-    RouterOutlet,
-    ConfigurationModule,
-    MatSidenavModule,
-    MatToolbarModule,
     MatIconModule,
     MatListModule,
     MatButtonModule,
     MatMenuModule,
-    MatExpansionModule
+    MatExpansionModule,
+    CommonModule,
+    RouterOutlet,
+    RouterLink,
+    ConfigurationModule,
+    MatSidenavModule,
+    MatToolbarModule
   ],
   templateUrl: './app.html',
   styleUrl: './app.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
-export class App {
+export class App implements AfterViewInit {
   isSidebarOpen = true;
   isMobile = false;
+  private lastToggle = 0;
 
   protected readonly title = signal('pms-ui');
 
@@ -49,42 +51,24 @@ export class App {
     { label: 'Pharmacy', icon: 'fa fa-medkit', route: '/pharmacy' }
   ];
 
-  // menuItems = [
-  //   {
-  //     label: 'Dashboard',
-  //     icon: 'dashboard',
-  //     children: [
-  //       { label: 'Overview', icon: 'insights', route: '/dashboard/overview' },
-  //       { label: 'Reports', icon: 'bar_chart', route: '/dashboard/reports' }
-  //     ]
-  //   },
-  //   {
-  //     label: 'Patients',
-  //     icon: 'people',
-  //     children: [
-  //       { label: 'All Patients', icon: 'group', route: '/patients' },
-  //       { label: 'Add Patient', icon: 'person_add', route: '/patients/add' }
-  //     ]
-  //   },
-  //   {
-  //     label: 'Appointments',
-  //     icon: 'event',
-  //     children: [
-  //       { label: 'Upcoming', icon: 'event_available', route: '/appointments/upcoming' },
-  //       { label: 'History', icon: 'history', route: '/appointments/history' }
-  //     ]
-  //   }
-  // ];
-
-
-
-
   constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object) { }
+
+  @ViewChild('drawer') drawer?: MatSidenav;
 
   @HostListener('window:resize')
   onResize() {
     if (isPlatformBrowser(this.platformId)) {
       this.checkScreenSize();
+      // sync drawer state with current screen size
+      if (this.drawer) {
+        if (this.isMobile) {
+          this.drawer.close();
+          this.isSidebarOpen = false;
+        } else {
+          this.drawer.open();
+          this.isSidebarOpen = true;
+        }
+      }
     }
   }
 
@@ -92,20 +76,72 @@ export class App {
     this.checkScreenSize();
   }
 
+  ngAfterViewInit(): void {
+    // ensure drawer initial state matches screen size
+    if (this.drawer) {
+      if (this.isMobile) {
+        this.drawer.close();
+        this.isSidebarOpen = false;
+      } else {
+        this.drawer.open();
+        this.isSidebarOpen = true;
+      }
+    }
+
+    // close the sidenav on navigation for mobile devices
+    this.router.events.subscribe((ev) => {
+      if (ev instanceof NavigationEnd && this.isMobile) {
+        this.drawer?.close();
+        this.isSidebarOpen = false;
+      }
+    });
+  }
+
+  isRouteActive(path: string): boolean {
+    return this.router.url.startsWith(path);
+  }
+
+
   checkScreenSize() {
     if (isPlatformBrowser(this.platformId)) {
       this.isMobile = window.innerWidth < 768;
+      // on mobile devices keep sidebar closed by default, open on larger screens
+      this.isSidebarOpen = !this.isMobile;
     }
   }
 
   toggleSidebar() {
-    debugger
-    this.isSidebarOpen = !this.isSidebarOpen;
+    const now = Date.now();
+    // ignore double clicks/taps within 300ms
+    if (now - this.lastToggle < 300) {
+      this.lastToggle = now;
+      return;
+    }
+    this.lastToggle = now;
+
+    if (this.isMobile) {
+      if (this.drawer) {
+        this.drawer.toggle();
+        // MatSidenav.opened is a getter; ensure our flag follows
+        // set a small timeout to allow MatSidenav to update its opened state
+        setTimeout(() => (this.isSidebarOpen = !!this.drawer?.opened), 0);
+      } else {
+        this.isSidebarOpen = !this.isSidebarOpen;
+      }
+    } else {
+      this.isSidebarOpen = !this.isSidebarOpen;
+    }
+  }
+
+  onMenuItemClick() {
+    if (this.isMobile) {
+      this.drawer?.close();
+      this.isSidebarOpen = false;
+    }
   }
 
   logout() {
     console.log('Logging out...');
-    // Add logout logic here
   }
 
 
