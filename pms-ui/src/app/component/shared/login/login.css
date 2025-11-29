@@ -1,0 +1,117 @@
+    ._bg {
+        height: 100vh;
+        overflow: hidden;
+        background: #0f2027;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    /* Floating animated circles */
+    .circle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        animation: float 6s infinite ease-in-out;
+        filter: blur(2px);
+    }
+
+
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-25px);
+        }
+    }
+
+    .circle:nth-child(1) {
+        width: 160px;
+        height: 160px;
+        top: 10%;
+        left: 5%;
+        animation-delay: 0s;
+    }
+
+    .circle:nth-child(2) {
+        width: 100px;
+        height: 100px;
+        bottom: 15%;
+        right: 10%;
+        animation-delay: 1.5s;
+    }
+
+    .circle:nth-child(3) {
+        width: 130px;
+        height: 130px;
+        top: 60%;
+        left: 20%;
+        animation-delay: 3s;
+    }
+
+
+    /* Glassmorphic Login Box */
+    .login-box {
+        width: 100%;
+        max-width: 420px;
+        padding: 40px 35px;
+        border-radius: 20px;
+        backdrop-filter: blur(15px);
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+        color: #fff;
+        animation: zoomInPage .6s ease-in-out forwards;
+        transform: scale(0.9);
+        opacity: 0.2;
+    }
+
+
+    .login-box h2 {
+        font-weight: 600;
+        margin-bottom: 20px;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+
+
+    .form-control {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: #fff;
+        height: 48px;
+        border-radius: 12px;
+    }
+
+
+    .form-control::placeholder {
+        color: #e1e1e1;
+    }
+
+
+    .btn-login {
+        background: #00c6ff;
+        background: linear-gradient(135deg, #00c6ff, #0072ff);
+        border: none;
+        padding: 12px;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: 0.3s;
+        color: white;
+    }
+
+
+    .btn-login:hover {
+        transform: scale(1.03);
+        filter: brightness(1.15);
+    }
+
+
+    a {
+        color: #bde8ff;
+    }

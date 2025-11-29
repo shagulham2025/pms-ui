@@ -1,0 +1,42 @@
+ .bg_ {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 23px;
+    padding: 25px;
+    animation: zoomInPage .6s ease-in-out forwards;
+    transform: scale(0.9);
+    opacity: 0.2;
+ }
+
+ img.img_show {
+    width: 134px;
+    height: 134px;
+    object-fit: contain;
+    border: none;
+    padding: 0px 0px;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+ }
+
+ p.f_l_name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    width: 134px;
+    height: 134px;
+    padding: 0px 0px;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin: auto;
+ }
+
+ .profile_name {
+    font-size: 24px !important;
+    margin: 0;
+ }
+
+ .back_btn {
+    border: none;
+    padding: 0px 9px;
+    border-radius: 5px;
+ }
