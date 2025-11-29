@@ -2,97 +2,110 @@
 <form [formGroup]="userForm" class="user-form">
     <div class="mat-typography m-2 p-2">
         <div class="row">
-            <div class="col">
-                <mat-form-field class="w-100 mb-2">
-                    <mat-label>Full Name</mat-label>
-                    <input matInput formControlName="fullName" required>
-                </mat-form-field>
+            <div class="col-4 mt-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control shadow-sm rounded-3" id="firstName" placeholder="First Name"
+                        formControlName="fullName" required>
+                    <label for="firstName">First Name</label>
+                </div>
             </div>
-            <div class="col">
-                <mat-form-field class="w-100 mb-2">
-                    <mat-label>Email</mat-label>
-                    <input matInput formControlName="email" required type="email">
-                </mat-form-field>
+            <div class="col-4 mt-2">
+                <div class="form-floating">
+                    <input type="email" class="form-control shadow-sm rounded-3" id="email" placeholder="Email"
+                        formControlName="email" required>
+                    <label for="email">Email</label>
+                </div>
             </div>
-            <div class="col">
-                <mat-form-field class="w-100 mb-2">
-                    <mat-label>Phone Number</mat-label>
-                    <input matInput formControlName="phoneNumber" required>
-                </mat-form-field>
+            <div class="col-4 mt-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control shadow-sm rounded-3" id="phoneNumber"
+                        placeholder="Phone Number" formControlName="phoneNumber" required>
+                    <label for="phoneNumber">Phone Number</label>
+                </div>
             </div>
-            <div class="col">
-                <mat-form-field class="w-100 mb-2">
-                    <mat-label>Role</mat-label>
-                    <input matInput formControlName="role" required>
-                </mat-form-field>
+            <div class="col-4 mt-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control shadow-sm rounded-3" id="role" placeholder="Role"
+                        formControlName="role" required>
+                    <label for="role">Role</label>
+                </div>
             </div>
-            <div class="col">
-                <mat-form-field class="w-100 mb-2">
-                    <mat-label>Department</mat-label>
-                    <input matInput formControlName="department" required>
-                </mat-form-field>
+            <div class="col-4 mt-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control shadow-sm rounded-3" id="department" placeholder="Department"
+                        formControlName="department" required>
+                    <label for="department">Department</label>
+                </div>
             </div>
-            <div class="col">
-                <mat-form-field class="w-100 mb-2">
-                    <mat-label>Designation</mat-label>
-                    <input matInput formControlName="designation" required>
-                </mat-form-field>
+            <div class="col-4 mt-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control shadow-sm rounded-3" id="designation"
+                        placeholder="Designation" formControlName="designation" required>
+                    <label for="designation">Designation</label>
+                </div>
             </div>
-            <div class="col">
-                <mat-form-field class="w-100 mb-2">
-                    <mat-label>Username</mat-label>
-                    <input matInput formControlName="username" required>
-                </mat-form-field>
+            <div class="col-4 mt-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control shadow-sm rounded-3" id="username" placeholder="Username"
+                        formControlName="username" required>
+                    <label for="username">Username</label>
+                </div>
             </div>
-            <div class="col">
-                <mat-form-field class="w-100 mb-2">
-                    <mat-label>Access Level</mat-label>
-                    <input matInput formControlName="accessLevel" required type="number">
-                </mat-form-field>
+            <div class="col-4 mt-2">
+                <div class="form-floating">
+                    <input type="number" class="form-control shadow-sm rounded-3" id="accessLevel"
+                        placeholder="Access Level" formControlName="accessLevel" required>
+                    <label for="accessLevel">Access Level</label>
+                </div>
             </div>
-            <div class="col">
-                <mat-form-field class="w-100 mb-2">
-                    <mat-label>Status</mat-label>
-                    <input matInput formControlName="status" required>
-                </mat-form-field>
+            <div class="col-4 mt-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control shadow-sm rounded-3" id="status" placeholder="Status"
+                        formControlName="status" required>
+                    <label for="status">Status</label>
+                </div>
             </div>
-            <div class="col">
-                <mat-form-field class="w-100 mb-2">
-                    <mat-label>Gender</mat-label>
-                    <input matInput formControlName="gender" required>
-                </mat-form-field>
+            <div class="col-4 mt-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control shadow-sm rounded-3" id="gender" placeholder="Gender"
+                        formControlName="gender" required>
+                    <label for="gender">Gender</label>
+                </div>
             </div>
-            <div class="col">
-                <mat-form-field class="w-100 mb-2" appearance="fill">
-                    <mat-label>Date of Birth</mat-label>
-                    <input matInput [matDatepicker]="dobPicker" formControlName="dob" required>
-                    <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
-                    <mat-datepicker #dobPicker></mat-datepicker>
-                </mat-form-field>
+            <div class="col-4 mt-2">
+                <div class="form-floating">
+                    <input type="date" class="form-control shadow-sm rounded-3" id="dob" placeholder="Date of Birth"
+                        formControlName="dob" required>
+                    <label for="dob">Date of Birth</label>
+                </div>
             </div>
-            <div class="col">
-                <mat-form-field class="w-100 mb-2">
-                    <mat-label>Shift Schedule</mat-label>
-                    <input matInput formControlName="shiftSchedule">
-                </mat-form-field>
+            <div class="col-4 mt-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control shadow-sm rounded-3" id="shiftSchedule"
+                        placeholder="Shift Schedule" formControlName="shiftSchedule">
+                    <label for="shiftSchedule">Shift Schedule</label>
+                </div>
             </div>
-            <div class="col">
-                <mat-form-field class="w-100 mb-2">
-                    <mat-label>Specialization</mat-label>
-                    <input matInput formControlName="specialization">
-                </mat-form-field>
+            <div class="col-4 mt-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control shadow-sm rounded-3" id="specialization"
+                        placeholder="Specialization" formControlName="specialization">
+                    <label for="specialization">Specialization</label>
+                </div>
             </div>
-            <div class="col">
-                <mat-form-field class="w-100 mb-2">
-                    <mat-label>License Number</mat-label>
-                    <input matInput formControlName="licenseNumber">
-                </mat-form-field>
+            <div class="col-4 mt-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control shadow-sm rounded-3" id="licenseNumber"
+                        placeholder="License Number" formControlName="licenseNumber">
+                    <label for="licenseNumber">License Number</label>
+                </div>
             </div>
-            <div class="col">
-                <mat-form-field class="w-100 mb-2">
-                    <mat-label>Emergency Contact</mat-label>
-                    <input matInput formControlName="emergencyContact">
-                </mat-form-field>
+            <div class="col-4 mt-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control shadow-sm rounded-3" id="emergencyContact"
+                        placeholder="Emergency Contact" formControlName="emergencyContact">
+                    <label for="emergencyContact">Emergency Contact</label>
+                </div>
             </div>
         </div>
         <div class="d-flex justify-content-end mt-3">
