@@ -1,57 +1,59 @@
-<mat-sidenav-container class="sidenav-container">
-  <!-- Sidebar -->
-  <mat-sidenav #drawer [mode]="isMobile ? 'over' : 'side'" [opened]="isSidebarOpen || isMobile" class="sidenav">
-    <ul class="list-unstyled m-0 mt-5">
-      @for (item of menuItems; track item.label) {
-      <li [ngClass]="{ 'active-link': isRouteActive(item.route) }" class="mt-2">
-        <a [routerLink]="item.route" (click)="onMenuItemClick()" class="nav-link d-flex align-items-center px-3 py-2">
-          <i [class]="item.icon"></i>
-          <span class="ms-2">{{ item.label }}</span>
-        </a>
-      </li>
-      }
-    </ul>
-  </mat-sidenav>
+<div class="g-grid">
 
+  <!-- TOPBAR -->
+  <nav class="navbar navbar-dark px-3">
+    <button class="btn btn-light d-md-none me-2" (click)="toggleSidebar()">
+      ☰
+    </button>
+    <a class="navbar-brand" routerLink="../dashboard">LOGO</a>
+    <div class="dropdown dropstart">
+      <button class="profile-img dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><b>AK</b></button>
 
-  <!-- Main Content -->
-  <mat-sidenav-content class="main-content">
-    <!-- Header -->
-    <mat-toolbar color="primary" class="header">
-      <button mat-icon-button (click)="toggleSidebar()">
-        <mat-icon class="f-18">menu</mat-icon>
-      </button>
-      <span class="ms-2 header-font">My Healthcare App</span>
-      <span class="flex-grow-1"></span>
+      <ul class="dropdown-menu dropdown-menu-start">
+        <li><a class="dropdown-item">Profile</a></li>
+        <li><a class="dropdown-item">Change Password</a></li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li><a class="dropdown-item cursor-pointer" (click)="logout_()">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
 
-      <!-- User Dropdown -->
-      <button mat-icon-button [matMenuTriggerFor]="userMenu">
-        <mat-icon class="f-18">account_circle</mat-icon>
-      </button>
-      <mat-menu #userMenu="matMenu">
-        <button mat-menu-item class="header-setting">
-          <mat-icon>person</mat-icon>
-          <span class="mb-2">User Info</span>
-        </button>
-        <button mat-menu-item class="header-setting">
-          <mat-icon>settings</mat-icon>
-          <span>Settings</span>
-        </button>
-        <button mat-menu-item class="header-setting" (click)="logout()">
-          <mat-icon>logout</mat-icon>
-          <span>Logout</span>
-        </button>
-      </mat-menu>
-    </mat-toolbar>
+  <div class="d-flex flex-grow-1">
 
-    <!-- Scrollable Content -->
-    <div class="content-area">
-      <router-outlet></router-outlet>
+    <!-- SIDEBAR -->
+    <div [class.show]="sidebarOpen" class="sidebar p-3">
+      <h5 style="visibility: hidden;">Menu</h5>
+      <ul class="nav flex-column">
+        @for (item of menuItems; track item.label) {
+        <li class="nav-item" >
+          <a routerLinkActive="active" [routerLink]="item.route" class="nav-link">
+            <i [class]="item.icon"></i>
+            <span class="ms-2">{{ item.label }}</span>
+          </a>
+        </li>
+        }
+        <!-- <li class="nav-item" (click)="routing_('customer-entry')"><a class="nav-link" routerLinkActive="active" routerLink="customer-entry">Customer Entry</a></li>
+        <li class="nav-item" (click)="routing_('employee-details')"><a   class="nav-link" routerLinkActive="active" routerLink="employee-details">Employee Details</a></li> -->
+      </ul>
     </div>
 
-    <!-- Footer -->
-    <mat-toolbar color="accent" class="footer">
-      &copy; 2025 My Company
-    </mat-toolbar>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+    <!-- MAIN CONTENT -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-secondary text-white text-center p-2">
+    © 2025 Attractive Bootstrap Layout • All Rights Reserved
+  </footer>
+
+</div>
