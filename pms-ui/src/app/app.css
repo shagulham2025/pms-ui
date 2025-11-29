@@ -1,33 +1,3 @@
-/* SIDEBAR */
-.sidebar {
-  width: 220px;
-  transition: transform 0.3s ease-in-out;
-}
-
-button.profile-img.dropdown-toggle {
-  border: none;
-  padding: 9px 10px;
-  border-radius: 50%;
-  font-size: 14px;
-}
-
-button.profile-img.dropdown-toggle::before {
-  content: none !important;
-}
-
-@media (max-width: 768px) {
-  .sidebar {
-    position: absolute;
-    height: 100%;
-    transform: translateX(-100%);
-    z-index: 999;
-  }
-
-  .sidebar.show {
-    transform: translateX(0);
-  }
-}
-
 nav.navbar.navbar-dark {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
@@ -35,13 +5,6 @@ nav.navbar.navbar-dark {
 .navbar-brand {
   color: #000;
 }
-
-.sidebar {
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  background-color: #fff;
-  height: 92vh;
-}
-
 a.dropdown-item {
   cursor: pointer;
 }
@@ -62,8 +25,73 @@ a.nav-link:hover {
   color: #fff !important;
 }
 
-footer {
-  bottom: 0;
-  position: fixed;
-  width: 100%;
+button.profile-img.dropdown-toggle {
+    border: none;
+    padding: 9px 10px;
+    border-radius: 50%;
+    font-size: 14px;
 }
+button.profile-img.dropdown-toggle::before{
+  content: none !important;
+}
+
+/* ROOT LAYOUT */
+.g-grid {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* full height */
+  overflow: hidden; /* prevent full-page scrolling */
+}
+
+/* TOPBAR */
+nav.navbar {
+  flex-shrink: 0;
+  height: 56px;
+  color: white;
+}
+
+/* MAIN WRAPPER (sidebar + main content) */
+.g-grid > .d-flex {
+  flex-grow: 1;
+  overflow: hidden; /* prevents whole page scroll */
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 240px;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  overflow-y: auto; /* sidebar scroll if needed */
+}
+
+.sidebar.show {
+  transform: translateX(0);
+}
+
+/* For mobile sliding sidebar */
+@media (max-width: 768px) {
+  .sidebar {
+    position: absolute;
+    height: 100%;
+    left: -240px;
+    transition: 0.3s;
+  }
+
+  .sidebar.show {
+    left: 0;
+  }
+}
+
+/* MAIN CONTENT (only this should scroll) */
+.container-fluid {
+  overflow-y: auto;
+  height: calc(100vh - 56px - 40px); /* full height - navbar - footer */
+  padding-bottom: 20px;
+}
+
+/* FOOTER */
+footer {
+  flex-shrink: 0;
+  height: 40px;
+}
+
