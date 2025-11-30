@@ -6,40 +6,40 @@
                 <div class="form-floating">
                     <input type="text" class="form-control shadow-sm rounded-3" id="firstName" placeholder="First Name"
                         formControlName="firstName" required>
-                    <label for="firstName">First Name</label>
+                    <label for="firstName">First Name*</label>
                 </div>
             </div>
             <div class="col-4 mt-2">
                 <div class="form-floating">
-                    <input type="text" class="form-control shadow-sm rounded-3" id="lastName" placeholder="First Name"
+                    <input type="text" class="form-control shadow-sm rounded-3" id="lastName" placeholder="Last Name"
                         formControlName="lastName" required>
-                    <label for="lastName">Last Name</label>
+                    <label for="lastName">Last Name*</label>
                 </div>
             </div>
             <div class="col-4 mt-2">
                 <div class="form-floating">
                     <input type="email" class="form-control shadow-sm rounded-3" id="emailId" placeholder="Email ID"
                         formControlName="emailId" required>
-                    <label for="emailId">Email ID</label>
+                    <label for="emailId">Email ID*</label>
                 </div>
             </div>
             <div class="col-4 mt-2">
                 <div class="form-floating">
                     <input type="text" class="form-control shadow-sm rounded-3" id="mobileNumber"
                         placeholder="Phone Number" formControlName="mobileNumber" required>
-                    <label for="mobileNumber">Mobile Number</label>
+                    <label for="mobileNumber">Mobile Number*</label>
                 </div>
             </div>
             <div class="col-4 mt-2">
                 <div class="form-floating">
                     <input type="text" class="form-control shadow-sm rounded-3" id="emergencyContactNumber"
                         placeholder="Emergency Contact Number" formControlName="emergencyContactNumber" required>
-                    <label for="emergencyContactNumber">Emergency Contact Number</label>
+                    <label for="emergencyContactNumber">Emergency Contact Number*</label>
                 </div>
             </div>
             <div class="col-4 mt-2">
                 <div class="form-floating">
-                <label class="form-label fw-bold">Select Gender</label>
+                <label class="form-label fw-bold">Select Gender*</label>
                 <select class="form-select" [(ngModel)]="gender">
                     <option value="" disabled selected>-- Select --</option>
                     @for (g of genders; track $index) {
@@ -50,7 +50,7 @@
             </div>
             <div class="col-4 mt-2">
                 <div class="form-floating">
-                <label class="form-label fw-bold">Select Status</label>
+                <label class="form-label fw-bold">Select Status*</label>
                 <select class="form-select" [(ngModel)]="status">
                     <option value="" disabled selected>-- Select --</option>
                     @for (status of userStatus; track $index) {
@@ -61,7 +61,7 @@
             </div>
             <div class="col-4 mt-2">
                 <div class="form-floating">
-                <label class="form-label fw-bold">Select UserType</label>
+                <label class="form-label fw-bold">Select UserType*</label>
                 <select class="form-select" [(ngModel)]="userType">
                     <option value="" disabled selected>-- Select --</option>
                     @for (type of userTypes; track $index) {
@@ -74,12 +74,12 @@
                 <div class="form-floating">
                     <input type="date" class="form-control shadow-sm rounded-3" id="dob" placeholder="Date of Birth"
                         formControlName="dob" >
-                    <label for="dob">Date of Birth</label>
+                    <label for="dob">Date of Birth (Optional)</label>
                 </div>
             </div>
             <div class="col-4 mt-2">
                 <div class="form-floating">
-                <label class="form-label fw-bold">Select Department</label>
+                <label class="form-label fw-bold">Select Department*</label>
                 <select class="form-select" [(ngModel)]="departmentName">
                     <option value="" disabled selected>-- Select --</option>
                     @for (type of departments; track $index) {
@@ -91,17 +91,21 @@
             <div class="col-4 mt-2">
                 <div class="form-floating">
                 <div class="position-relative">
-                    <input type="text" class="form-control" placeholder="Enter specialization" [(ngModel)]="searchText"
+                    <input type="text" class="form-control shadow-sm rounded-3" placeholder="Enter specialization*" [(ngModel)]="searchText"
                         [ngModelOptions]="{standalone: true}" (input)="filterSpecializations()" (focus)="showDropdown = true">
                 
                     <!-- Autocomplete dropdown -->
-                    <ul *ngIf="showDropdown && filteredList.length > 0" class="list-group position-absolute w-100"
+                    @if (showDropdown && filteredList.length > 0) {
+                    <ul class="list-group position-absolute w-100 shadow-sm"
                         style="z-index: 1000;">
-                        <li *ngFor="let item of filteredList" class="list-group-item list-group-item-action"
+                        @for (item of filteredList; track $index) {
+                        <li class="list-group-item list-group-item-action"
                             (click)="selectSpecialization(item)">
                             {{ item }}
                         </li>
+                        }
                     </ul>
+                    } 
                 </div>
                 </div>
             </div>
@@ -109,12 +113,12 @@
                 <div class="form-floating">
                     <input type="text" class="form-control shadow-sm rounded-3" id="licenseNumber"
                         placeholder="License Number" formControlName="licenseNumber">
-                    <label for="licenseNumber">License Number</label>
+                    <label for="licenseNumber">License Number*</label>
                 </div>
             </div>
             <div class="col-4 mt-2">
                 <div class="form-floating">
-                <label class="form-label fw-bold">Select Shift</label>
+                <label class="form-label fw-bold">Select Shift*</label>
                 <select class="form-select" [(ngModel)]="shiftSchedule">
                     <option value="" disabled selected>-- Select --</option>
                     @for (shift of shiftList; track $index) {
@@ -123,6 +127,17 @@
                 </select>
                 </div>
             </div>
+
+            <!-- PROFILE IMAGE -->
+            <div class="col-4 mt-3">
+                <label class="form-label fw-bold">Profile Image (Max 1MB)</label>
+                <input type="file" class="form-control" accept="image/*"
+                       (change)="onFileSelect($event)">
+                 @if (imageError) {
+                <small class="text-danger" >{{ imageError }}</small>
+                 }
+            </div>
+        
         <!-- ---------------- ADDRESS SECTION ---------------- -->
         <h4 class="mt-4 mb-3 fw-bold">Address Details</h4>
 

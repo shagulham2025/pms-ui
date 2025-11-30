@@ -33,6 +33,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
     this.dialog.open(AddEditUsersComponent, {
       width: '900px',
+      maxHeight: '90vh',
+      disableClose: true,
       data: {}
     });
   }

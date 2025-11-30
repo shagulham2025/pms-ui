@@ -1,5 +1,5 @@
 
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmDialogData } from '../../../../model/confirm-dialog-data';
@@ -42,6 +42,8 @@ export class AddEditUsersComponent implements OnInit {
   searchText = '';
   showDropdown = false;
   filteredList: string[] = [];
+  profileImage: File | null = null;
+  imageError = '';
 
   constructor(private fb: FormBuilder,@Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData) {
     //this.isEdit = data?.isEdit as;
@@ -64,9 +66,10 @@ export class AddEditUsersComponent implements OnInit {
       userType: ['', Validators.required],
       dob: ['', Validators.required],
       departmentName: ['', Validators.required],
+      specialization: [''],
       licenseNumber: [''],
       shiftSchedule: [''],
-
+      profileImage: [null],
       addresses: this.fb.array([this.createAddress()])
     });
   }
@@ -103,6 +106,21 @@ export class AddEditUsersComponent implements OnInit {
     this.filteredList = this.specializations.filter(item =>
       item.toLowerCase().includes(val)
     );
+  }
+
+    /** PROFILE IMAGE UPLOAD VALIDATION */
+  onFileSelect(event: any) {
+    const file = event.target.files[0];
+    this.imageError = '';
+
+    if (!file) return;
+
+    if (file.size > 1024 * 1024) {
+      this.imageError = 'File size must be less than 1 MB';
+      return;
+    }
+
+    this.profileImage = file;
   }
 
   selectSpecialization(value: string) {

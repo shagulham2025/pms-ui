@@ -20,16 +20,23 @@
   @if (selectedTab === 'user') {
   <div class="container-fluid mt-3">
   <div class="row align-items-center">
-    <div class="col-12 col-md-8">
+    <div class="col-12 col-md-6">
       <h2 class="head">User Information</h2>
     </div>
-    <div class="col-12 col-md-4 d-flex justify-content-end gap-2">
-      <div class="flex-grow-1">
+    <div class="col-12 col-md-6">
+    <div class="d-flex align-items-center gap-2 row">
+    <input type="text" class="col-md-8" placeholder="Search..." style="height: 45px;">
+
+    <button class="btn btn-primary col-md-3" style="height: 45px;">
+        Add New User
+    </button>
+    </div>
+      <!-- <div class="flex-grow-1">
         <input type="text" class="form-control shadow-sm" (input)="applyFilter($event)" placeholder="Search...">
       </div>
       <button class="btn btn-primary _btn btn-ripple px-4 py-2" (click)="openAddUserDialog()">
         Add New User
-      </button>
+      </button> -->
     </div>
   </div>
   <div class="row mt-3">
