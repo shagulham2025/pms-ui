@@ -44,7 +44,6 @@ mat-label {
 .cdk-overlay-container {
   z-index: 99999 !important;
 }
-
-.card, .form-group, .row, .col {
+.form-group, .row, .col {
   overflow: visible !important;
 }

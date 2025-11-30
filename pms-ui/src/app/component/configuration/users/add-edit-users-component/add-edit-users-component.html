@@ -40,9 +40,9 @@
             <div class="col-4 mt-2">
                 <div class="form-floating">
                 <label class="form-label fw-bold">Select Gender</label>
-                <select class="form-select" [(ngModel)]="selectedGender">
+                <select class="form-select" [(ngModel)]="gender">
                     <option value="" disabled selected>-- Select --</option>
-                    @for (g of gender; track $index) {
+                    @for (g of genders; track $index) {
                     <option [value]="g">{{ g }}</option>
                     }
                 </select>
@@ -50,72 +50,59 @@
             </div>
             <div class="col-4 mt-2">
                 <div class="form-floating">
-                    <input type="text" class="form-control shadow-sm rounded-3" id="role" placeholder="Role"
-                        formControlName="role" required>
-                    <label for="role">Role</label>
+                <label class="form-label fw-bold">Select Status</label>
+                <select class="form-select" [(ngModel)]="status">
+                    <option value="" disabled selected>-- Select --</option>
+                    @for (status of userStatus; track $index) {
+                    <option [value]="status">{{ status }}</option>
+                    }
+                </select>
                 </div>
             </div>
             <div class="col-4 mt-2">
                 <div class="form-floating">
-                    <input type="text" class="form-control shadow-sm rounded-3" id="department" placeholder="Department"
-                        formControlName="department" required>
-                    <label for="department">Department</label>
-                </div>
-            </div>
-            <div class="col-4 mt-2">
-                <div class="form-floating">
-                    <input type="text" class="form-control shadow-sm rounded-3" id="designation"
-                        placeholder="Designation" formControlName="designation" required>
-                    <label for="designation">Designation</label>
-                </div>
-            </div>
-            <div class="col-4 mt-2">
-                <div class="form-floating">
-                    <input type="text" class="form-control shadow-sm rounded-3" id="username" placeholder="Username"
-                        formControlName="username" required>
-                    <label for="username">Username</label>
-                </div>
-            </div>
-            <div class="col-4 mt-2">
-                <div class="form-floating">
-                    <input type="number" class="form-control shadow-sm rounded-3" id="accessLevel"
-                        placeholder="Access Level" formControlName="accessLevel" required>
-                    <label for="accessLevel">Access Level</label>
-                </div>
-            </div>
-            <div class="col-4 mt-2">
-                <div class="form-floating">
-                    <input type="text" class="form-control shadow-sm rounded-3" id="status" placeholder="Status"
-                        formControlName="status" required>
-                    <label for="status">Status</label>
-                </div>
-            </div>
-            <div class="col-4 mt-2">
-                <div class="form-floating">
-                    <input type="text" class="form-control shadow-sm rounded-3" id="gender" placeholder="Gender"
-                        formControlName="gender" required>
-                    <label for="gender">Gender</label>
+                <label class="form-label fw-bold">Select UserType</label>
+                <select class="form-select" [(ngModel)]="userType">
+                    <option value="" disabled selected>-- Select --</option>
+                    @for (type of userTypes; track $index) {
+                    <option [value]="type">{{ type }}</option>
+                    }
+                </select>
                 </div>
             </div>
             <div class="col-4 mt-2">
                 <div class="form-floating">
                     <input type="date" class="form-control shadow-sm rounded-3" id="dob" placeholder="Date of Birth"
-                        formControlName="dob" required>
+                        formControlName="dob" >
                     <label for="dob">Date of Birth</label>
                 </div>
             </div>
             <div class="col-4 mt-2">
                 <div class="form-floating">
-                    <input type="text" class="form-control shadow-sm rounded-3" id="shiftSchedule"
-                        placeholder="Shift Schedule" formControlName="shiftSchedule">
-                    <label for="shiftSchedule">Shift Schedule</label>
+                <label class="form-label fw-bold">Select Department</label>
+                <select class="form-select" [(ngModel)]="departmentName">
+                    <option value="" disabled selected>-- Select --</option>
+                    @for (type of departments; track $index) {
+                    <option [value]="type">{{ type }}</option>
+                    }
+                </select>
                 </div>
             </div>
             <div class="col-4 mt-2">
                 <div class="form-floating">
-                    <input type="text" class="form-control shadow-sm rounded-3" id="specialization"
-                        placeholder="Specialization" formControlName="specialization">
-                    <label for="specialization">Specialization</label>
+                <div class="position-relative">
+                    <input type="text" class="form-control" placeholder="Enter specialization" [(ngModel)]="searchText"
+                        [ngModelOptions]="{standalone: true}" (input)="filterSpecializations()" (focus)="showDropdown = true">
+                
+                    <!-- Autocomplete dropdown -->
+                    <ul *ngIf="showDropdown && filteredList.length > 0" class="list-group position-absolute w-100"
+                        style="z-index: 1000;">
+                        <li *ngFor="let item of filteredList" class="list-group-item list-group-item-action"
+                            (click)="selectSpecialization(item)">
+                            {{ item }}
+                        </li>
+                    </ul>
+                </div>
                 </div>
             </div>
             <div class="col-4 mt-2">
@@ -127,11 +114,108 @@
             </div>
             <div class="col-4 mt-2">
                 <div class="form-floating">
-                    <input type="text" class="form-control shadow-sm rounded-3" id="emergencyContact"
-                        placeholder="Emergency Contact" formControlName="emergencyContact">
-                    <label for="emergencyContact">Emergency Contact</label>
+                <label class="form-label fw-bold">Select Shift</label>
+                <select class="form-select" [(ngModel)]="shiftSchedule">
+                    <option value="" disabled selected>-- Select --</option>
+                    @for (shift of shiftList; track $index) {
+                    <option [value]="shift.value">{{ shift.label }}</option>
+                    }
+                </select>
                 </div>
             </div>
+        <!-- ---------------- ADDRESS SECTION ---------------- -->
+        <h4 class="mt-4 mb-3 fw-bold">Address Details</h4>
+
+        <div formArrayName="addresses">
+
+            <div class="border rounded-3 p-3 mb-3 shadow-sm"
+                 *ngFor="let addr of addresses.controls; let i = index" 
+                 [formGroupName]="i">
+
+                <div class="row">
+                    <div class="col-4 mt-2">
+                        <div class="form-floating">
+                            <input type="text" class="form-control shadow-sm rounded-3"
+                                   placeholder="Address Line 1"
+                                   formControlName="addressLine1">
+                            <label>Address Line 1 (Optional)</label>
+                        </div>
+                    </div>
+
+                    <div class="col-4 mt-2">
+                        <div class="form-floating">
+                            <input type="text" class="form-control shadow-sm rounded-3"
+                                   placeholder="Address Line 2"
+                                   formControlName="addressLine2" required>
+                            <label>Address Line 2*</label>
+                        </div>
+                    </div>
+
+                    <div class="col-4 mt-2">
+                        <div class="form-floating">
+                            <input type="text" class="form-control shadow-sm rounded-3"
+                                   placeholder="Street"
+                                   formControlName="street" required>
+                            <label>Street*</label>
+                        </div>
+                    </div>
+
+                    <div class="col-4 mt-2">
+                        <div class="form-floating">
+                            <input type="text" class="form-control shadow-sm rounded-3"
+                                   placeholder="City"
+                                   formControlName="city" required>
+                            <label>City*</label>
+                        </div>
+                    </div>
+
+                    <div class="col-4 mt-2">
+                        <div class="form-floating">
+                            <input type="text" class="form-control shadow-sm rounded-3"
+                                   placeholder="State"
+                                   formControlName="state" required>
+                            <label>State*</label>
+                        </div>
+                    </div>
+
+                    <div class="col-4 mt-2">
+                        <div class="form-floating">
+                            <input type="text" class="form-control shadow-sm rounded-3"
+                                   placeholder="Country"
+                                   formControlName="country" required>
+                            <label>Country*</label>
+                        </div>
+                    </div>
+
+                    <div class="col-4 mt-2">
+                        <div class="form-floating">
+                            <input type="text" class="form-control shadow-sm rounded-3"
+                                   placeholder="Postal Code"
+                                   formControlName="postalCode" required>
+                            <label>Postal Code*</label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Add / Remove buttons -->
+                <div class="d-flex justify-content-end mt-3">
+                    <button type="button" class="btn btn-danger btn-sm"
+                            (click)="removeAddress(i)"
+                            [disabled]="addresses.length === 1">
+                        Remove
+                    </button>
+                </div>
+
+            </div>
+
+            <button type="button" class="btn btn-success btn-sm mb-3"
+                    (click)="addAddress()">
+                + Add Another Address
+            </button>
+
+        </div>
+        <!-- ---------------- END ADDRESS SECTION ---------------- -->
         </div>
         <div class="d-flex justify-content-end mt-3">
             <button class="btn btn-secondary ms-2" mat-dialog-close>Cancel</button>
