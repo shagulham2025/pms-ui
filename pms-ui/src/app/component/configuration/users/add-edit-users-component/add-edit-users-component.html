@@ -5,22 +5,47 @@
             <div class="col-4 mt-2">
                 <div class="form-floating">
                     <input type="text" class="form-control shadow-sm rounded-3" id="firstName" placeholder="First Name"
-                        formControlName="fullName" required>
+                        formControlName="firstName" required>
                     <label for="firstName">First Name</label>
                 </div>
             </div>
             <div class="col-4 mt-2">
                 <div class="form-floating">
-                    <input type="email" class="form-control shadow-sm rounded-3" id="email" placeholder="Email"
-                        formControlName="email" required>
-                    <label for="email">Email</label>
+                    <input type="text" class="form-control shadow-sm rounded-3" id="lastName" placeholder="First Name"
+                        formControlName="lastName" required>
+                    <label for="lastName">Last Name</label>
                 </div>
             </div>
             <div class="col-4 mt-2">
                 <div class="form-floating">
-                    <input type="text" class="form-control shadow-sm rounded-3" id="phoneNumber"
-                        placeholder="Phone Number" formControlName="phoneNumber" required>
-                    <label for="phoneNumber">Phone Number</label>
+                    <input type="email" class="form-control shadow-sm rounded-3" id="emailId" placeholder="Email ID"
+                        formControlName="emailId" required>
+                    <label for="emailId">Email ID</label>
+                </div>
+            </div>
+            <div class="col-4 mt-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control shadow-sm rounded-3" id="mobileNumber"
+                        placeholder="Phone Number" formControlName="mobileNumber" required>
+                    <label for="mobileNumber">Mobile Number</label>
+                </div>
+            </div>
+            <div class="col-4 mt-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control shadow-sm rounded-3" id="emergencyContactNumber"
+                        placeholder="Emergency Contact Number" formControlName="emergencyContactNumber" required>
+                    <label for="emergencyContactNumber">Emergency Contact Number</label>
+                </div>
+            </div>
+            <div class="col-4 mt-2">
+                <div class="form-floating">
+                <label class="form-label fw-bold">Select Gender</label>
+                <select class="form-select" [(ngModel)]="selectedGender">
+                    <option value="" disabled selected>-- Select --</option>
+                    @for (g of gender; track $index) {
+                    <option [value]="g">{{ g }}</option>
+                    }
+                </select>
                 </div>
             </div>
             <div class="col-4 mt-2">

@@ -18,6 +18,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['userId', 'fullName', 'email', 'role', 'department', 'designation', 'status', 'actions'];
   dataSource = new MatTableDataSource<User>();
+  selectedTab: 'user' | 'role' = 'user';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

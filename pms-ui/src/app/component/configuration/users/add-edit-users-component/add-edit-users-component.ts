@@ -14,6 +14,9 @@ export class AddEditUsersComponent implements OnInit {
   
   userForm!: FormGroup;
   isEdit: boolean = false;
+  roles: string[] = ['Admin', 'Manager', 'User', 'Viewer'];
+  gender: string[] = ['Male', 'Female', 'Other'];
+  selectedGender: string = '';
 
   constructor(private fb: FormBuilder,@Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData) {
     //this.isEdit = data?.isEdit as;
