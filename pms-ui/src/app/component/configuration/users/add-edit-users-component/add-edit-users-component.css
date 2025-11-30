@@ -1,0 +1,13 @@
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 0; /* Prevent double padding */
+}
+
+.close-btn {
+  margin: 0;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+}
