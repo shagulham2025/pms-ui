@@ -1,10 +1,14 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA,  Inject,  NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Inject, NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
 import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { ConfigurationModule } from './component/configuration/configuration.module';
 import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { ChangePassword } from './component/configuration/change-password/change-password';
+import { Profile } from './component/configuration/profile/profile';
 
+declare var $: any;
 
 @Component({
   selector: 'app-root',
@@ -14,8 +18,8 @@ import { MatButtonModule } from '@angular/material/button';
     RouterOutlet,
     RouterLink,
     ConfigurationModule
-    ,MatMenuModule
-    ,MatButtonModule,
+    , MatMenuModule
+    , MatButtonModule,
     RouterModule
   ],
   templateUrl: './app.html',
@@ -25,7 +29,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class App {
 
   sidebarOpen = false;
-  
+
   menuItems = [
     { label: 'Dashboard', icon: 'fa fa-bar-chart', route: '/home/dashboard' },
     { label: 'Appointments', icon: 'fa fa-calendar', route: '/appointment/all-appointment' },
@@ -36,8 +40,8 @@ export class App {
     { label: 'Pharmacy', icon: 'fa fa-medkit', route: '/pharmacy' }
   ];
 
-  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object) { }
-  
+  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object, private prof_dialog: MatDialog) { }
+
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
   }
@@ -45,7 +49,30 @@ export class App {
   logout_() {
     this.router.navigateByUrl("login")
   }
+  profile_() {
+    if (!this.prof_dialog) {
+      console.warn('MatDialog is not available in injector. Cannot open dialog.');
+      return;
+    }
 
+    this.prof_dialog.open(Profile, {
+      width: '500px',
+      height: 'auto',
+      maxHeight: '80vh',
+      autoFocus: false,
+      data: {}
+    });
+  }
+  change_pass() {
+    if (!this.prof_dialog) {
+      console.warn('MatDialog is not available in injector. Cannot open dialog.');
+      return;
+    }
 
-
+    this.prof_dialog.open(ChangePassword, {
+      width: '500px',
+      autoFocus: false,
+      data: {}
+    });
+  }
 }

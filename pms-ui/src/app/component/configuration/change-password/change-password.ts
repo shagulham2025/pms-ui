@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrl: './change-password.css',
 })
 export class ChangePassword {
-  
+     constructor(private dialogRef:MatDialogRef<ChangePassword>){}
   router = inject(Router)
   back_() {
     this.router.navigateByUrl('dashboard')
@@ -27,4 +28,7 @@ export class ChangePassword {
       this.confirm_show = !this.confirm_show;
     }
   }
+   close_(){
+    this.dialogRef.close()
+   }
 }

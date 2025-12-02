@@ -10,8 +10,8 @@
       <button class="profile-img dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><b>AK</b></button>
 
       <ul class="dropdown-menu dropdown-menu-start">
-        <li><a class="dropdown-item" [routerLink]="'/configuration/profile'" >Profile</a></li>
-        <li><a class="dropdown-item" [routerLink]="'/configuration/change-password'" >Change Password</a></li>
+        <li><a (click)="profile_()" class="dropdown-item">Profile</a></li>
+        <li><a (click)="change_pass()" class="dropdown-item" >Change Password</a></li>
         <li>
           <hr class="dropdown-divider">
         </li>

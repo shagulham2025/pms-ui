@@ -8,8 +8,8 @@ import { ChangePassword } from "./change-password/change-password";
 const routes: Routes = [
     { path: 'users', component: UsersComponent },
     { path: 'properties', component: PropertiesComponent } ,
-    { path: 'profile', component: Profile },
-    { path: 'change-password', component: ChangePassword },
+    // { path: 'profile', component: Profile },
+    // { path: 'change-password', component: ChangePassword },
 ];
 
 @NgModule({
