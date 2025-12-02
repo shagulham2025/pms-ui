@@ -20,3 +20,6 @@
 .custom-delete-btn:hover {
   background-color: #c50f1f;
 }
+.equal-height {
+    height: 42px;
+}

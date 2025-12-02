@@ -1,4 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
+import { NgClass, CommonModule } from '@angular/common';
 import { ConfigurationRoutingModule } from "./configuration.routes";
 import { PropertiesComponent } from "./properties/properties-component";
 import { UsersComponent } from "./users/users-component";
@@ -26,6 +27,7 @@ import { ConfirmationDialog } from "../shared/confirmation-dialog/confirmation-d
     ],
     imports: [
         ConfigurationRoutingModule,
+        CommonModule,
         MatTableModule,
         MatPaginatorModule,
         MatSortModule,

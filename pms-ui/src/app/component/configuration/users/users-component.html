@@ -1,15 +1,41 @@
-<div class="container-fluid mt-3">
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" 
+       [ngClass]="{ 'active': selectedTab === 'user' }"
+       (click)="selectedTab = 'user'">
+      User Info
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link"
+       [ngClass]="{ 'active': selectedTab === 'role' }"
+       (click)="selectedTab = 'role'">
+      Role Info
+    </a>
+  </li>
+</ul>
+
+<div class="mt-3">
+  @if (selectedTab === 'user') {
+  <div class="container-fluid mt-3">
   <div class="row align-items-center">
-    <div class="col-12 col-md-8">
+    <div class="col-12 col-md-6">
       <h2 class="head">User Information</h2>
     </div>
-    <div class="col-12 col-md-4 d-flex justify-content-end gap-2">
-      <div class="flex-grow-1">
+    <div class="col-12 col-md-6">
+    <div class="d-flex align-items-center gap-2 row">
+    <input type="text" class="col-md-8" placeholder="Search..." style="height: 45px;" (input)="applyFilter($event)">
+    <button class="btn btn-primary col-md-3" style="height: 45px;" (click)="openAddUserDialog()">
+        Add New User
+    </button>
+    </div>
+      <!-- <div class="flex-grow-1">
         <input type="text" class="form-control shadow-sm" (input)="applyFilter($event)" placeholder="Search...">
       </div>
       <button class="btn btn-primary _btn btn-ripple px-2 py-1" (click)="openAddUserDialog()">
         Add New User
-      </button>
+      </button> -->
     </div>
   </div>
   <div class="row mt-3">
@@ -78,3 +104,11 @@
     </div>
   </div>
 </div>
+}
+
+@if (selectedTab === 'role') {
+  <h4>Role Info Content</h4>
+}
+</div>
+
+
