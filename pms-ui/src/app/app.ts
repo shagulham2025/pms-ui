@@ -34,6 +34,7 @@ export class App {
     { label: 'Dashboard', icon: 'fa fa-bar-chart', route: '/home/dashboard' },
     { label: 'Appointments', icon: 'fa fa-calendar', route: '/appointment/all-appointment' },
     { label: 'Doctor', icon: 'fa fa-user-md', route: '/doctor/all-doctor' },
+    { label: 'Prescription', icon: 'fa fa-book', route: '/configuration/prescription' },
     { label: 'Patients', icon: 'fa fa-bed', route: '/patient/all-patient' },
     { label: 'User', icon: 'fa fa-user', route: '/configuration/users' },
     { label: 'Properties', icon: 'fa fa-building', route: '/configuration/properties' },

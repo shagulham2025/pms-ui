@@ -5,6 +5,8 @@ import { PropertiesComponent } from "./properties/properties-component";
 import { UsersComponent } from "./users/users-component";
 import { AddEditUsersComponent } from "./users/add-edit-users-component/add-edit-users-component";
 import { AddEditPropertiesComponent } from "./properties/add-edit-properties-component/add-edit-properties-component";
+import { PrescriptionComponent } from "./prescription/prescription-component";
+import { AddEditPrescriptionComponent } from "./prescription/add-edit-prescription-component/add-edit-prescription-component";
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -22,8 +24,10 @@ import { ConfirmationDialog } from "../shared/confirmation-dialog/confirmation-d
     declarations: [
         PropertiesComponent,
         UsersComponent,
+        PrescriptionComponent,
         AddEditUsersComponent,
         AddEditPropertiesComponent,
+        AddEditPrescriptionComponent,
     ],
     imports: [
         ConfigurationRoutingModule,

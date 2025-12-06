@@ -1,5 +1,6 @@
 export interface Properties {
   propertiesId: number;
-  propertiesName: string;
-  description: string;
+  propertiesKey: string;
+  propertiesValue: string;
+  description?: string;
 }

@@ -1,1 +1,63 @@
-<p>properties-component works!</p>
+<div class="table-container">
+
+	<div class="row align-items-center mb-2">
+		<div class="col-6">
+			<h4>Properties</h4>
+		</div>
+		<div class="col-6 text-end">
+			<div class="d-flex justify-content-end gap-2">
+                <input type="text" class="col-md-7" placeholder="Search..." style="height: 45px;" (input)="applyFilter($event)">
+                <button class="btn btn-primary col-md-4" style="height: 45px;" (click)="openAddPropertyDialog()">
+                    Add New Property
+                </button>
+				<!-- <mat-form-field class="w-50 me-2">
+					<mat-label>Search</mat-label>
+					<input matInput (input)="applyFilter($event)">
+				</mat-form-field>
+				<button class="btn btn-primary" (click)="openAddPropertyDialog()">Add New Property</button> -->
+			</div>
+		</div>
+	</div>
+
+	<div class="mat-elevation-z8">
+
+		<table mat-table [dataSource]="dataSource" matSort>
+
+			<ng-container matColumnDef="key">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header>Key</th>
+				<td mat-cell *matCellDef="let item">{{ item.propertiesKey }}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="value">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header>Value</th>
+				<td mat-cell *matCellDef="let item">{{ item.propertiesValue }}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="description">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+				<td mat-cell *matCellDef="let item">{{ item.description }}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="actions">
+				<th mat-header-cell *matHeaderCellDef class="text-center">Action</th>
+				<td mat-cell *matCellDef="let item" class="text-center">
+					<button mat-icon-button color="primary" (click)="editProperty(item)">
+						<mat-icon>edit</mat-icon>
+					</button>
+					<button mat-icon-button color="warn" (click)="deleteProperty(item.propertiesId)">
+						<mat-icon>delete</mat-icon>
+					</button>
+				</td>
+			</ng-container>
+
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+		</table>
+
+	</div>
+
+	<div class="table-footer mt-2">
+		<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+	</div>
+
+</div>

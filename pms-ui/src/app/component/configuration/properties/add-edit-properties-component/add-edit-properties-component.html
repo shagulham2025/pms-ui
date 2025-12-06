@@ -1,1 +1,35 @@
-<p>add-edit-properties-component works!</p>
+@if (isEdit) {
+<h3>Edit Property</h3>
+}@else{
+<h3>Add Property</h3>
+}
+
+<form [formGroup]="propertyForm" (ngSubmit)="save()">
+    <div class="mat-typography m-2 p-2">
+	<div class="mb-3">
+		<mat-form-field class="w-50">
+			<mat-label>Key</mat-label>
+			<input matInput formControlName="propertiesKey" required>
+		</mat-form-field>
+	</div>
+
+	<div class="mb-3">
+		<mat-form-field class="w-50">
+			<mat-label>Value</mat-label>
+			<input matInput formControlName="propertiesValue" required>
+		</mat-form-field>
+	</div>
+
+	<div class="mb-3">
+		<mat-form-field class="w-80">
+			<mat-label>Description</mat-label>
+			<textarea matInput formControlName="description" rows="3"></textarea>
+		</mat-form-field>
+	</div>
+
+	<div class="d-flex justify-content-end gap-2">
+		<button mat-button type="button" (click)="cancel()">Cancel</button>
+		<button mat-flat-button color="primary" type="submit">Save</button>
+	</div>
+    </div>   
+</form>
