@@ -1,1 +1,29 @@
-<p>all-appointment-component works!</p>
+<div class="appointments-page">
+	<div class="page-header">
+		<h2>Upcoming Appointments</h2>
+		<button mat-raised-button color="primary" (click)="openBookingDialog()">Book New Appointment</button>
+	</div>
+
+	<div class="appointments-list">
+		<div *ngIf="upcomingAppointments.length === 0">No upcoming appointments.</div>
+
+		<div class="appointment-card" *ngFor="let appt of upcomingAppointments; let i = index">
+			<div class="left">
+				<div class="doctor">{{ appt.doctor }}</div>
+				<div class="department">{{ appt.department }}</div>
+			</div>
+			<div class="right">
+				<div class="time">{{ appt.time }}</div>
+				<div class="date">{{ appt.date }}</div>
+			</div>
+			<div class="actions-right">
+				<button mat-icon-button aria-label="Edit" (click)="editAppointment(i)">
+					<mat-icon>edit</mat-icon>
+				</button>
+				<button mat-icon-button color="warn" aria-label="Delete" (click)="deleteAppointment(i)">
+					<mat-icon>delete</mat-icon>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

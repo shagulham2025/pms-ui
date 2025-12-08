@@ -1,0 +1,6 @@
+h2 { margin-top:0; }
+.appointment-form { max-width:900px; }
+.row { display:flex; gap:16px; margin-bottom:12px; }
+.full { flex:1; }
+.half { flex:0 0 50%; }
+.actions { display:flex; gap:12px; margin-top:18px; }

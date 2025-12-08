@@ -1,1 +1,40 @@
-<p>add-edit-appointment-component works!</p>
+<h2>Book New Appointment</h2>
+
+<form [formGroup]="appointmentForm" class="appointment-form">
+	<div class="row">
+		<mat-form-field appearance="outline" class="full">
+			<mat-label>Select Department</mat-label>
+			<mat-select formControlName="department" (selectionChange)="onDepartmentChange()">
+				<mat-option *ngFor="let d of departments" [value]="d">{{ d }}</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<mat-form-field appearance="outline" class="full">
+			<mat-label>Select Doctor</mat-label>
+			<mat-select formControlName="doctor">
+				<mat-option *ngFor="let doc of availableDoctors" [value]="doc">{{ doc }}</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+
+	<div class="row">
+		<mat-form-field appearance="outline" class="half">
+			<mat-label>Select Date</mat-label>
+			<input matInput [matDatepicker]="picker" formControlName="date">
+			<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+			<mat-datepicker #picker></mat-datepicker>
+		</mat-form-field>
+
+		<mat-form-field appearance="outline" class="half">
+			<mat-label>Select Time Slot</mat-label>
+			<mat-select formControlName="time">
+				<mat-option *ngFor="let t of timeslots" [value]="t">{{ t }}</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+
+	<div class="actions">
+		<button mat-raised-button color="primary" type="button" (click)="confirm()">Confirm Booking</button>
+		<button mat-button type="button" (click)="cancel()">Cancel</button>
+	</div>
+</form>

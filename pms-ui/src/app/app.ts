@@ -1,6 +1,8 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, Inject, NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
 import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { ConfigurationModule } from './component/configuration/configuration.module';
+import { AppointmentModule } from './component/appointment/appointment.module';
+
 import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,7 +19,8 @@ declare var $: any;
     CommonModule,
     RouterOutlet,
     RouterLink,
-    ConfigurationModule
+    ConfigurationModule,
+    AppointmentModule
     , MatMenuModule
     , MatButtonModule,
     RouterModule
