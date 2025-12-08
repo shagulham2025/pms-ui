@@ -1,8 +1,9 @@
 
-import { Component, Inject, OnInit} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmDialogData } from '../../../../model/confirm-dialog-data';
+import { User } from '../../../../model/user';
 
 
 @Component({
@@ -45,8 +46,12 @@ export class AddEditUsersComponent implements OnInit {
   profileImage: File | null = null;
   imageError = '';
 
-  constructor(private fb: FormBuilder,@Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData) {
-    //this.isEdit = data?.isEdit as;
+  constructor(
+    private fb: FormBuilder,
+    private dialogRef: MatDialogRef<AddEditUsersComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Partial<User> | null
+  ) {
+    this.isEdit = !!this.data?.userId;
   }
 
   ngOnInit(): void {
@@ -55,23 +60,36 @@ export class AddEditUsersComponent implements OnInit {
       //this.selectedStatus = this.data?.userStatus ?? '';
       //this.cd.detectChanges();  // important
     });
+    // create form with fields we need for the users list; keep existing fields for compatibility
     this.userForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      emailId: ['', [Validators.required, Validators.email]],
-      mobileNumber: ['', Validators.required],
-      emergencyContactNumber: ['', Validators.required],
-      gender: ['', Validators.required],
-      status: ['', Validators.required],
-      userType: ['', Validators.required],
-      dob: ['', Validators.required],
-      departmentName: ['', Validators.required],
-      specialization: [''],
-      licenseNumber: [''],
-      shiftSchedule: [''],
+      firstName: [this.getFirstName(), Validators.required],
+      lastName: [this.getLastName(), Validators.required],
+      emailId: [this.data?.email ?? '', [Validators.required, Validators.email]],
+      mobileNumber: [(this.data as any)?.phoneNumber ?? '', Validators.required],
+      emergencyContactNumber: [this.data?.emergencyContact ?? '', Validators.required],
+      gender: [this.data?.gender ?? '', Validators.required],
+      status: [this.data?.status ?? 'ACTIVE', Validators.required],
+      userType: [this.data?.role ?? '', Validators.required],
+      dob: [this.data?.dob ?? '', Validators.required],
+      departmentName: [this.data?.department ?? '', Validators.required],
+      specialization: [(this.data as any)?.specialization ?? ''],
+      licenseNumber: [(this.data as any)?.licenseNumber ?? ''],
+      shiftSchedule: [this.data?.shiftSchedule ?? ''],
       profileImage: [null],
       addresses: this.fb.array([this.createAddress()])
     });
+  }
+
+  private getFirstName(): string {
+    if (!this.data?.fullName) return '';
+    const parts = this.data.fullName.split(' ');
+    return parts[0] ?? '';
+  }
+
+  private getLastName(): string {
+    if (!this.data?.fullName) return '';
+    const parts = this.data.fullName.split(' ');
+    return parts.slice(1).join(' ') || '';
   }
 
   createAddress(): FormGroup {
@@ -130,9 +148,34 @@ export class AddEditUsersComponent implements OnInit {
 
   onSubmit(): void {
     if (this.userForm.valid) {
-      console.log('User Data:', this.userForm.value);
+      const v = this.userForm.value;
+      const result: Partial<User> = {
+        userId: this.data?.userId,
+        fullName: `${v.firstName} ${v.lastName}`.trim(),
+        email: v.emailId,
+        phoneNumber: v.mobileNumber,
+        role: v.userType,
+        department: v.departmentName,
+        designation: (this.data as any)?.designation ?? '',
+        username: (this.data as any)?.username ?? '',
+        accessLevel: (this.data as any)?.accessLevel ?? 1,
+        status: v.status,
+        createdDateTime: this.data?.createdDateTime ?? new Date().toISOString(),
+        lastLogin: this.data?.lastLogin ?? '',
+        gender: v.gender,
+        dob: v.dob,
+        shiftSchedule: v.shiftSchedule,
+        specialization: v.specialization || null,
+        licenseNumber: v.licenseNumber || null,
+        emergencyContact: v.emergencyContactNumber
+      };
+      this.dialogRef.close(result);
     } else {
       this.userForm.markAllAsTouched();
     }
+  }
+
+  cancel(): void {
+    this.dialogRef.close(null);
   }
 }
