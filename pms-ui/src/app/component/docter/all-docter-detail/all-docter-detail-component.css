@@ -1,0 +1,57 @@
+/* Layout adjustments for the doctors table */
+:host { display:block; padding: 8px 8px; }
+
+.full-width { width: 100%; }
+
+/* Header and cell spacing: slightly tighter */
+table.full-width th.mat-header-cell, table.full-width td.mat-cell {
+	padding: 10px 12px;
+	border-bottom: 1px solid #f1f1f1;
+	vertical-align: middle;
+	word-break: break-word;
+}
+
+/* Make header slightly shaded */
+table.full-width thead .mat-header-cell {
+	background: #fafafa;
+	color: rgba(0,0,0,0.85);
+	font-weight: 600;
+}
+
+/* Column width hints */
+.mat-column-id { width: 90px; }
+.mat-column-experience { width: 110px; }
+.mat-column-status { width: 110px; }
+.mat-column-actions { width: 160px; max-width: 180px; }
+
+/* Row height and hover: more compact */
+tr.mat-row { height: 56px; }
+tr.mat-row:hover { background: rgba(0,0,0,0.02); }
+
+/* Action buttons: display horizontally and compact */
+.action-buttons { display: flex; align-items: center; gap: 6px; justify-content: center; flex-wrap: nowrap; }
+.action-buttons button { min-width: 36px; width:36px; height:36px; padding: 0; box-sizing: border-box; }
+.action-buttons mat-icon { font-size: 20px; }
+
+/* Ensure material icons align */
+.mat-icon { vertical-align: middle; }
+
+/* Paginator spacing */
+.mat-paginator { margin-top: 8px; }
+
+/* Responsive: hide less important columns on small screens */
+@media (max-width: 900px) {
+	.mat-column-email, .mat-column-phone, .mat-column-experience { display: none; }
+}
+
+@media (max-width: 720px) {
+	table.full-width, thead, tbody, th, td, tr { display: block; }
+	thead { display: none; }
+	tr.mat-row { margin: 0 0 12px 0; height: auto; padding: 8px; border: 1px solid #f0f0f0; border-radius: 6px; }
+	td.mat-cell { display: flex; justify-content: space-between; padding: 8px 10px; }
+}
+
+/* Scroll wrapper to prevent table overflow and keep actions inside */
+.table-wrapper { overflow-x: auto; width: 100%; }
+.table-wrapper table.full-width { min-width: 980px; }
+

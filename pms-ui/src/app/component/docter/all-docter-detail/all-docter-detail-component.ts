@@ -26,11 +26,12 @@ interface Doctor {
 @Component({
   standalone: false,
   selector: 'app-all-docter-detail-component',
-  templateUrl: './all-docter-detail-component.html'
+  templateUrl: './all-docter-detail-component.html',
+  styleUrls: ['./all-docter-detail-component.css']
 })
 export class AllDocterDetailComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['id', 'name', 'specialization', 'department', 'experience', 'email', 'phone', 'status', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'specialization', 'department', 'experience', 'phone', 'status', 'actions'];
   dataSource = new MatTableDataSource<Doctor>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

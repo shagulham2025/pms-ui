@@ -14,7 +14,8 @@
 	<div class="row mt-3">
 		<div class="col-12">
 			<div class="mat-elevation-z8">
-				<table mat-table [dataSource]="dataSource" class="full-width" matSort>
+				<div class="table-wrapper">
+					<table mat-table [dataSource]="dataSource" class="full-width" matSort>
 
 					<ng-container matColumnDef="id">
 						<th mat-header-cell *matHeaderCellDef mat-sort-header>DoctorID</th>
@@ -41,10 +42,10 @@
 						<td mat-cell *matCellDef="let d">{{ d.experience }} yrs</td>
 					</ng-container>
 
-					<ng-container matColumnDef="email">
+					<!-- <ng-container matColumnDef="email">
 						<th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
 						<td mat-cell *matCellDef="let d">{{ d.email }}</td>
-					</ng-container>
+					</ng-container> -->
 
 					<ng-container matColumnDef="phone">
 						<th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
@@ -58,17 +59,20 @@
 
 					<ng-container matColumnDef="actions">
 						<th mat-header-cell *matHeaderCellDef class="text-center">Actions</th>
-						<td mat-cell *matCellDef="let d" class="text-center">
-							<button mat-icon-button color="primary" title="View" (click)="viewDoctor(d)"><mat-icon>visibility</mat-icon></button>
-							<button mat-icon-button color="primary" title="Availability" (click)="viewAvailability(d)"><mat-icon>schedule</mat-icon></button>
-							<button mat-icon-button color="accent" title="Edit" (click)="editDoctor(d)"><mat-icon>edit</mat-icon></button>
-							<button mat-icon-button color="warn" title="Delete" (click)="deleteDoctor(d)"><mat-icon>delete</mat-icon></button>
+						<td mat-cell *matCellDef="let d" class="text-center mat-column-actions">
+							<div class="action-buttons" role="group" aria-label="row actions">
+								<button mat-icon-button color="primary" title="View" (click)="viewDoctor(d)"><mat-icon>visibility</mat-icon></button>
+								<button mat-icon-button color="primary" title="Availability" (click)="viewAvailability(d)"><mat-icon>schedule</mat-icon></button>
+								<button mat-icon-button color="accent" title="Edit" (click)="editDoctor(d)"><mat-icon>edit</mat-icon></button>
+								<button mat-icon-button color="warn" title="Delete" (click)="deleteDoctor(d)"><mat-icon>delete</mat-icon></button>
+							</div>
 						</td>
 					</ng-container>
 
 					<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 					<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-				</table>
+					</table>
+				</div>
 
 				<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 			</div>
