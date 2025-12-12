@@ -1,1 +1,83 @@
-<p>add-edit-patient-component works!</p>
+<div style="display:flex; flex-direction:column; height:100vh;">
+	<div style="padding:16px; border-bottom:1px solid #eee;">
+		<h3 *ngIf="!form?.value?.id">Add Patient</h3>
+		<h3 *ngIf="form?.value?.id">Edit Patient</h3>
+	</div>
+
+	<div style="flex:1; overflow:auto; padding:16px;">
+		<form [formGroup]="form" (ngSubmit)="submit()">
+			<div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:12px;">
+				<mat-form-field appearance="outline">
+					<mat-label>Name</mat-label>
+					<input matInput formControlName="name" />
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>Age</mat-label>
+					<input type="number" matInput formControlName="age" />
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>Height (cm)</mat-label>
+					<input type="number" matInput formControlName="height" />
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>Weight (kg)</mat-label>
+					<input type="number" matInput formControlName="weight" />
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>Gender</mat-label>
+					<mat-select formControlName="gender">
+						<mat-option *ngFor="let g of genders" [value]="g">{{ g }}</mat-option>
+					</mat-select>
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>Phone</mat-label>
+					<input matInput formControlName="phone" />
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>Emergency Contact</mat-label>
+					<input matInput formControlName="emergencyContact" />
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>Visit Type</mat-label>
+					<mat-select formControlName="visitType">
+						<mat-option *ngFor="let t of visitTypes" [value]="t">{{ t }}</mat-option>
+					</mat-select>
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>Department</mat-label>
+					<input matInput formControlName="department" />
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>Doctor</mat-label>
+					<input matInput formControlName="doctor" />
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>Last Visit Date</mat-label>
+					<input matInput [matDatepicker]="picker" formControlName="lastVisitDate" />
+					<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+					<mat-datepicker #picker></mat-datepicker>
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>Admission Status</mat-label>
+					<input matInput formControlName="admissionStatus" />
+				</mat-form-field>
+			</div>
+		</form>
+	</div>
+
+	<div style="padding:12px 16px; border-top:1px solid #eee; display:flex; justify-content:flex-end; gap:8px;">
+		<button mat-stroked-button type="button" (click)="cancel()">Cancel</button>
+		<button mat-flat-button color="primary" type="button" (click)="submit()">{{ isReadOnly ? 'Close' : 'Save' }}</button>
+	</div>
+</div>

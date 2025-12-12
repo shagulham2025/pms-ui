@@ -1,0 +1,18 @@
+<div style="display:flex; flex-direction:column; height:100%">
+  <div style="padding:16px; border-bottom:1px solid #eee"><h3 *ngIf="!form?.value?.id">Add Medicine</h3><h3 *ngIf="form?.value?.id">Edit Medicine</h3></div>
+  <div style="flex:1; overflow:auto; padding:16px">
+    <form [formGroup]="form">
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px">
+        <mat-form-field appearance="outline"><mat-label>Name</mat-label><input matInput formControlName="name"/></mat-form-field>
+        <mat-form-field appearance="outline"><mat-label>SKU</mat-label><input matInput formControlName="sku"/></mat-form-field>
+        <mat-form-field appearance="outline"><mat-label>Stock</mat-label><input type="number" matInput formControlName="stock"/></mat-form-field>
+        <mat-form-field appearance="outline"><mat-label>Unit Price</mat-label><input type="number" matInput formControlName="unitPrice"/></mat-form-field>
+        <mat-form-field appearance="outline"><mat-label>Expiry</mat-label><input matInput [matDatepicker]="picker" formControlName="expiry"/><mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle><mat-datepicker #picker></mat-datepicker></mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div style="padding:12px 16px; border-top:1px solid #eee; display:flex; justify-content:flex-end; gap:8px">
+    <button mat-stroked-button type="button" (click)="cancel()">Cancel</button>
+    <button mat-flat-button color="primary" type="button" (click)="submit()">{{ isReadOnly ? 'Close' : 'Save' }}</button>
+  </div>
+</div>

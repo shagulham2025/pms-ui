@@ -15,6 +15,8 @@ export const routes: Routes = [
         path: 'doctor', loadChildren: () => import('./component/docter/docter.module').then(m => m.DocterModule)
     }, {
         path: 'patient', loadChildren: () => import('./component/patient/patient.module').then(m => m.PatientModule)
+    }, {
+        path: 'pharmacy', loadChildren: () => import('./component/pharmacy/pharmacy.module').then(m => m.PharmacyModule)
     }
 ];
 

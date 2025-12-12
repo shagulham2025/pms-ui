@@ -1,0 +1,10 @@
+:host{display:block;padding:8px}
+.table-wrapper{overflow-x:auto;width:100%}
+.full-width{width:100%;min-width:1000px}
+table.full-width th.mat-header-cell, table.full-width td.mat-cell{padding:10px 12px;border-bottom:1px solid #eee;vertical-align:middle}
+tr.mat-row{height:56px}
+.action-buttons{display:flex;gap:6px;align-items:center;justify-content:center}
+.action-buttons button{width:36px;height:36px;padding:0}
+.mat-column-actions{width:140px}
+@media (max-width:900px){.mat-column-phone,.mat-column-emergencyContact,.mat-column-height,.mat-column-weight{display:none}}
+@media (max-width:720px){table.full-width,thead,tbody,th,td,tr{display:block}thead{display:none}tr.mat-row{margin:0 0 12px 0;height:auto;padding:8px;border:1px solid #f0f0f0;border-radius:6px}td.mat-cell{display:flex;justify-content:space-between;padding:8px 10px}}
