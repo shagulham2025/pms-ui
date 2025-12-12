@@ -1,244 +1,202 @@
 <h2 mat-dialog-title>Add User</h2>
 <mat-dialog-content class="dialog-body">
-<form [formGroup]="userForm" class="user-form">
+  <form [formGroup]="userForm" class="user-form">
     <div class="mat-typography m-2 p-2">
-        <div class="row">
-            <div class="col-4 mt-2">
-                <div class="form-floating">
-                    <input type="text" class="form-control shadow-sm rounded-3" id="firstName" placeholder="First Name"
-                        formControlName="firstName" required>
-                    <label class="fw-bold" for="firstName">First Name*</label>
-                </div>
-            </div>
-            <div class="col-4 mt-2">
-                <div class="form-floating">
-                    <input type="text" class="form-control shadow-sm rounded-3" id="lastName" placeholder="Last Name"
-                        formControlName="lastName" required>
-                    <label class="fw-bold" for="lastName">Last Name*</label>
-                </div>
-            </div>
-            <div class="col-4 mt-2">
-                <div class="form-floating">
-                    <input type="email" class="form-control shadow-sm rounded-3" id="emailId" placeholder="Email ID"
-                        formControlName="emailId" required>
-                    <label class="fw-bold" for="emailId">Email ID*</label>
-                </div>
-            </div>
-            <div class="col-4 mt-2">
-                <div class="form-floating">
-                    <input type="text" class="form-control shadow-sm rounded-3" id="mobileNumber"
-                        placeholder="Phone Number" formControlName="mobileNumber" required>
-                    <label class="fw-bold" for="mobileNumber">Mobile Number*</label>
-                </div>
-            </div>
-            <div class="col-4 mt-2">
-                <div class="form-floating">
-                    <input type="text" class="form-control shadow-sm rounded-3" id="emergencyContactNumber"
-                        placeholder="Emergency Contact Number" formControlName="emergencyContactNumber" required>
-                    <label class="fw-bold" for="emergencyContactNumber">Emergency Contact Number*</label>
-                </div>
-            </div>
-            <div class="col-4 mt-2">
-                <div class="form-floating">
-                <label class="form-label fw-bold">Select Gender*</label>
-                <select class="form-select" [(ngModel)]="gender">
-                    <option value="" disabled selected>-- Select --</option>
-                    @for (g of genders; track $index) {
-                    <option [value]="g">{{ g }}</option>
-                    }
-                </select>
-                </div>
-            </div>
-            <div class="col-4 mt-2">
-                <div class="form-floating">
-                <label class="form-label fw-bold">Select Status*</label>
-                <select class="form-select" [(ngModel)]="status">
-                    <option value="" disabled selected>-- Select --</option>
-                    @for (status of userStatus; track $index) {
-                    <option [value]="status">{{ status }}</option>
-                    }
-                </select>
-                </div>
-            </div>
-            <div class="col-4 mt-2">
-                <div class="form-floating">
-                <label class="form-label fw-bold">Select UserType*</label>
-                <select class="form-select" [(ngModel)]="userType">
-                    <option value="" disabled selected>-- Select --</option>
-                    @for (type of userTypes; track $index) {
-                    <option [value]="type">{{ type }}</option>
-                    }
-                </select>
-                </div>
-            </div>
-            <div class="col-4 mt-2">
-                <div class="form-floating">
-                    <input type="date" class="form-control shadow-sm rounded-3" id="dob" placeholder="Date of Birth"
-                        formControlName="dob" >
-                    <label class="fw-bold" for="dob">Date of Birth (Optional)</label>
-                </div>
-            </div>
-            <div class="col-4 mt-2">
-                <div class="form-floating">
-                <label class="form-label fw-bold">Select Department*</label>
-                <select class="form-select" [(ngModel)]="departmentName">
-                    <option value="" disabled selected>-- Select --</option>
-                    @for (type of departments; track $index) {
-                    <option [value]="type">{{ type }}</option>
-                    }
-                </select>
-                </div>
-            </div>
-            <div class="col-4 mt-2">
-                <div class="form-floating">
-                <div class="position-relative">
-                    <label class="fw-bold">Specialization*</label>
-                    <input type="text" class="form-control shadow-sm rounded-3" [(ngModel)]="searchText"
-                        [ngModelOptions]="{standalone: true}" (input)="filterSpecializations()" (focus)="showDropdown = true">
-                
-                    <!-- Autocomplete dropdown -->
-                    @if (showDropdown && filteredList.length > 0) {
-                    <ul class="list-group position-absolute w-100 shadow-sm"
-                        style="z-index: 1000;">
-                        @for (item of filteredList; track $index) {
-                        <li class="list-group-item list-group-item-action"
-                            (click)="selectSpecialization(item)">
-                            {{ item }}
-                        </li>
-                        }
-                    </ul>
-                    } 
-                </div>
-                </div>
-            </div>
-            <div class="col-4 mt-2">
-                <div class="form-floating">
-                    <input type="text" class="form-control shadow-sm rounded-3" id="licenseNumber"
-                        placeholder="License Number" formControlName="licenseNumber">
-                    <label class="fw-bold" for="licenseNumber">License Number*</label>
-                </div>
-            </div>
-            <div class="col-4 mt-2">
-                <div class="form-floating">
-                <label class="form-label fw-bold">Select Shift*</label>
-                <select class="form-select" [(ngModel)]="shiftSchedule">
-                    <option value="" disabled selected>-- Select --</option>
-                    @for (shift of shiftList; track $index) {
-                    <option [value]="shift.value">{{ shift.label }}</option>
-                    }
-                </select>
-                </div>
-            </div>
+      <div class="row">
+        <div class="col-4 mt-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" required />
+          </mat-form-field>
+        </div>
 
-            <!-- PROFILE IMAGE -->
-            <div class="col-4 mt-2">
-                <label class=" fw-bold">Profile Image (Max 1MB)</label>
-                <input type="file" class="form-control" accept="image/*"
-                       (change)="onFileSelect($event)">
-                 @if (imageError) {
-                <small class="text-danger" >{{ imageError }}</small>
-                 }
-            </div>
-        
+        <div class="col-4 mt-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" required />
+          </mat-form-field>
+        </div>
+
+        <div class="col-4 mt-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Email ID</mat-label>
+            <input matInput type="email" formControlName="emailId" required />
+          </mat-form-field>
+        </div>
+
+        <div class="col-4 mt-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Mobile Number</mat-label>
+            <input matInput formControlName="mobileNumber" required />
+          </mat-form-field>
+        </div>
+
+        <div class="col-4 mt-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Emergency Contact Number</mat-label>
+            <input matInput formControlName="emergencyContactNumber" required />
+          </mat-form-field>
+        </div>
+
+        <div class="col-4 mt-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Select Gender</mat-label>
+            <mat-select formControlName="gender">
+              <mat-option value="" disabled>-- Select --</mat-option>
+              <mat-option *ngFor="let g of genders" [value]="g">{{ g }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-4 mt-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Select Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option value="" disabled>-- Select --</mat-option>
+              <mat-option *ngFor="let s of userStatus" [value]="s">{{ s }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-4 mt-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Select UserType</mat-label>
+            <mat-select formControlName="userType">
+              <mat-option value="" disabled>-- Select --</mat-option>
+              <mat-option *ngFor="let t of userTypes" [value]="t">{{ t }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-4 mt-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Date of Birth</mat-label>
+            <input matInput [matDatepicker]="dobPicker" formControlName="dob" />
+            <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dobPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="col-4 mt-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Select Department</mat-label>
+            <mat-select formControlName="departmentName">
+              <mat-option value="" disabled>-- Select --</mat-option>
+              <mat-option *ngFor="let d of departments" [value]="d">{{ d }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-4 mt-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Specialization</mat-label>
+            <input matInput formControlName="specialization" (input)="filterSpecializations()" [matAutocomplete]="auto" />
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectSpecialization($event.option.value)">
+              <mat-option *ngFor="let item of filteredList" [value]="item">{{ item }}</mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+
+        <div class="col-4 mt-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>License Number</mat-label>
+            <input matInput formControlName="licenseNumber" />
+          </mat-form-field>
+        </div>
+
+        <div class="col-4 mt-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Select Shift*</mat-label>
+            <mat-select formControlName="shiftSchedule">
+              <mat-option value="" disabled>-- Select --</mat-option>
+              <mat-option *ngFor="let shift of shiftList" [value]="shift.value">{{ shift.label }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- PROFILE IMAGE -->
+        <div class="col-4 mt-2">
+          <label class="fw-bold">Profile Image (Max 1MB)</label>
+          <input type="file" class="form-control" accept="image/*" (change)="onFileSelect($event)" />
+          <small class="text-danger" *ngIf="imageError">{{ imageError }}</small>
+        </div>
+
         <!-- ---------------- ADDRESS SECTION ---------------- -->
         <h4 class="mt-4 mb-3 fw-bold">Address Details</h4>
 
         <div formArrayName="addresses">
 
-            <div class="border rounded-3 p-3 mb-3 shadow-sm"
-                 *ngFor="let addr of addresses.controls; let i = index" 
-                 [formGroupName]="i">
+            <div class="border rounded-3 p-3 mb-3 shadow-sm" *ngFor="let addr of addresses.controls; let i = index" [formGroupName]="i">
 
                 <div class="row">
                     <div class="col-4 mt-2">
-                        <div class="form-floating">
-                            <input type="text" class="form-control shadow-sm rounded-3"
-                                   placeholder="Address Line 1"
-                                   formControlName="addressLine1">
-                            <label class="fw-bold" >Address Line 1 (Optional)</label>
-                        </div>
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Address Line 1 (Optional)</mat-label>
+                            <input matInput formControlName="addressLine1" />
+                        </mat-form-field>
                     </div>
 
                     <div class="col-4 mt-2">
-                        <div class="form-floating">
-                            <input type="text" class="form-control shadow-sm rounded-3"
-                                   placeholder="Address Line 2"
-                                   formControlName="addressLine2" required>
-                            <label class="fw-bold">Address Line 2*</label>
-                        </div>
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Address Line 2*</mat-label>
+                            <input matInput formControlName="addressLine2" required />
+                        </mat-form-field>
                     </div>
 
                     <div class="col-4 mt-2">
-                        <div class="form-floating">
-                            <input type="text" class="form-control shadow-sm rounded-3"
-                                   placeholder="Street"
-                                   formControlName="street" required>
-                            <label class="fw-bold">Street*</label>
-                        </div>
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Street*</mat-label>
+                            <input matInput formControlName="street" required />
+                        </mat-form-field>
                     </div>
 
                     <div class="col-4 mt-2">
-                        <div class="form-floating">
-                            <input type="text" class="form-control shadow-sm rounded-3"
-                                   placeholder="City"
-                                   formControlName="city" required>
-                            <label class="fw-bold">City*</label>
-                        </div>
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>City*</mat-label>
+                            <input matInput formControlName="city" required />
+                        </mat-form-field>
                     </div>
 
                     <div class="col-4 mt-2">
-                        <div class="form-floating">
-                            <input type="text" class="form-control shadow-sm rounded-3"
-                                   placeholder="State"
-                                   formControlName="state" required>
-                            <label class="fw-bold">State*</label>
-                        </div>
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>State*</mat-label>
+                            <input matInput formControlName="state" required />
+                        </mat-form-field>
                     </div>
 
                     <div class="col-4 mt-2">
-                        <div class="form-floating">
-                            <input type="text" class="form-control shadow-sm rounded-3"
-                                   placeholder="Country"
-                                   formControlName="country" required>
-                            <label class="fw-bold">Country*</label>
-                        </div>
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Country*</mat-label>
+                            <input matInput formControlName="country" required />
+                        </mat-form-field>
                     </div>
 
                     <div class="col-4 mt-2">
-                        <div class="form-floating">
-                            <input type="text" class="form-control shadow-sm rounded-3"
-                                   placeholder="Postal Code"
-                                   formControlName="postalCode" required>
-                            <label class="fw-bold">Postal Code*</label>
-                        </div>
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Postal Code*</mat-label>
+                            <input matInput formControlName="postalCode" required />
+                        </mat-form-field>
                     </div>
 
                 </div>
 
                 <!-- Add / Remove buttons -->
                 <div class="d-flex justify-content-end mt-3">
-                    <button type="button" class="btn btn-danger btn-sm"
-                            (click)="removeAddress(i)"
-                            [disabled]="addresses.length === 1">
-                        Remove
-                    </button>
+                    <button type="button" class="btn btn-danger btn-sm" (click)="removeAddress(i)" [disabled]="addresses.length === 1">Remove</button>
                 </div>
 
             </div>
 
-            <button type="button" class="btn btn-success btn-sm mb-3"
-                    (click)="addAddress()">
-                + Add Another Address
-            </button>
+            <button type="button" class="btn btn-success btn-sm mb-3" (click)="addAddress()">+ Add Another Address</button>
 
         </div>
         <!-- ---------------- END ADDRESS SECTION ---------------- -->
-        </div>
+      </div>
     </div>
-</form>
+  </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end" class="dialog-footer">
-    <button class="btn btn-secondary me-2" mat-dialog-close>Cancel</button>
-    <button class="btn btn-primary" [disabled]="userForm.invalid">Submit</button>
+  <button class="btn btn-secondary me-2" mat-dialog-close>Cancel</button>
+  <button class="btn btn-primary" [disabled]="userForm.invalid" (click)="onSubmit()">Submit</button>
 </mat-dialog-actions>

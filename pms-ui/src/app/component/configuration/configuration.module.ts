@@ -11,10 +11,15 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -36,10 +41,15 @@ import { ConfirmationDialog } from "../shared/confirmation-dialog/confirmation-d
         MatPaginatorModule,
         MatSortModule,
         MatIconModule,
+        MatCardModule,
+        MatDividerModule,
         MatFormFieldModule,
         MatInputModule,
+        MatSelectModule,
+        MatAutocompleteModule,
         MatButtonModule,
         MatDialogModule,
+        MatCheckboxModule,
         FormsModule,
         ReactiveFormsModule,
         MatDatepickerModule,

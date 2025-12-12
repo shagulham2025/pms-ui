@@ -20,6 +20,15 @@ export class UsersComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<User>();
   selectedTab: 'user' | 'role' = 'user';
 
+  // Static role permissions shown in Role Info tab
+  roles: Array<{ name: string; view: boolean; edit: boolean; delete: boolean }> = [
+    { name: 'Administrator', view: true, edit: true, delete: true },
+    { name: 'Doctor', view: true, edit: false, delete: false },
+    { name: 'Nurse', view: true, edit: false, delete: false },
+    { name: 'Receptionist', view: true, edit: false, delete: false },
+    { name: 'Pharmacist', view: true, edit: false, delete: false }
+  ];
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -55,6 +64,20 @@ export class UsersComponent implements OnInit, AfterViewInit {
     this.usersService.users$.subscribe(users => {
       this.dataSource.data = users as User[];
     });
+
+    // Load saved roles from localStorage if present
+    try {
+      const saved = localStorage.getItem('app_roles');
+      if (saved) {
+        const parsed = JSON.parse(saved) as Array<{ name: string; view: boolean; edit: boolean; delete: boolean }>;
+        // basic validation
+        if (Array.isArray(parsed) && parsed.length) {
+          this.roles = parsed;
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to load saved roles', e);
+    }
   }
 
   ngAfterViewInit(): void {
@@ -89,6 +112,33 @@ export class UsersComponent implements OnInit, AfterViewInit {
         console.log('Delete cancelled');
       }
     });
+  }
+
+  onRoleChange(role: { name: string; view: boolean; edit: boolean; delete: boolean }) {
+    // role object mutated via ngModel; we can react here if needed
+    console.log('Role changed:', role.name, role);
+  }
+
+  saveRoles() {
+    try {
+      localStorage.setItem('app_roles', JSON.stringify(this.roles));
+      console.log('Roles saved');
+    } catch (e) {
+      console.error('Failed to save roles', e);
+    }
+  }
+
+  loadDefaultRoles() {
+    // reset to built-in defaults
+    this.roles = [
+      { name: 'Administrator', view: true, edit: true, delete: true },
+      { name: 'Doctor', view: true, edit: false, delete: false },
+      { name: 'Nurse', view: true, edit: false, delete: false },
+      { name: 'Receptionist', view: true, edit: false, delete: false },
+      { name: 'Pharmacist', view: true, edit: false, delete: false }
+    ];
+    // remove persisted override
+    try { localStorage.removeItem('app_roles'); } catch { /* ignore */ }
   }
 
 

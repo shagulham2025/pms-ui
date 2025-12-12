@@ -1,12 +1,15 @@
 <div class="appointments-page">
 	<div class="page-header">
 		<h2>Upcoming Appointments</h2>
-		<button mat-raised-button color="primary" (click)="openBookingDialog()">Book New Appointment</button>
+		<button class="btn btn-primary col-md-3" style="height: 45px;" (click)="openBookingDialog()">
+        Book New Appointment
+    	</button>
 	</div>
 
 	<div class="appointments-list">
-		<div *ngIf="upcomingAppointments.length === 0">No upcoming appointments.</div>
-
+		@if (upcomingAppointments.length === 0) {
+		<div>No upcoming appointments.</div>
+		}
 		<div class="appointment-card" *ngFor="let appt of upcomingAppointments; let i = index">
 			<div class="left">
 				<div class="doctor">{{ appt.doctor }}</div>
