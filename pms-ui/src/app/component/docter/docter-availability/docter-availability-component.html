@@ -1,1 +1,26 @@
-<p>docter-availability-component works!</p>
+<mat-card>
+	<mat-card-header>
+		<mat-card-title>Availability — {{ name }}</mat-card-title>
+	</mat-card-header>
+	<mat-card-content>
+		<table style="width:100%; border-collapse:collapse;">
+			<thead>
+				<tr>
+					<th style="text-align:left; padding:8px 6px;">Day</th>
+					<th style="text-align:left; padding:8px 6px;">Available</th>
+					<th style="text-align:left; padding:8px 6px;">Slots</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let w of schedule">
+					<td style="padding:8px 6px">{{ w.day }}</td>
+					<td style="padding:8px 6px">{{ w.available ? 'Yes' : 'No' }}</td>
+					<td style="padding:8px 6px">{{ formatSlots(w.slots) }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</mat-card-content>
+	<mat-card-actions style="display:flex; justify-content:flex-end;">
+		<button mat-stroked-button (click)="close()">Close</button>
+	</mat-card-actions>
+</mat-card>

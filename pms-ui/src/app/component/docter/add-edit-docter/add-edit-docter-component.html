@@ -1,1 +1,50 @@
-<p>add-edit-docter-component works!</p>
+<div style="padding:16px; width:100%">
+	<h3 *ngIf="!form?.value?.id">Add Doctor</h3>
+	<h3 *ngIf="form?.value?.id">Edit Doctor</h3>
+
+	<form [formGroup]="form" (ngSubmit)="submit()">
+		<div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+			<mat-form-field appearance="outline">
+				<mat-label>Name</mat-label>
+				<input matInput formControlName="name" />
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Specialization</mat-label>
+				<input matInput formControlName="specialization" />
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Department</mat-label>
+				<input matInput formControlName="department" />
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Experience (years)</mat-label>
+				<input type="number" matInput formControlName="experience" />
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Email</mat-label>
+				<input matInput formControlName="email" />
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Phone</mat-label>
+				<input matInput formControlName="phone" />
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Status</mat-label>
+				<mat-select formControlName="status">
+					<mat-option *ngFor="let s of statuses" [value]="s">{{ s }}</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+
+		<div style="display:flex; justify-content:flex-end; gap:8px; margin-top:12px;">
+			<button mat-stroked-button type="button" (click)="cancel()">Cancel</button>
+			<button mat-flat-button color="primary" type="submit">{{ isReadOnly ? 'Close' : 'Save' }}</button>
+		</div>
+	</form>
+</div>

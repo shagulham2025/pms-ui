@@ -5,7 +5,7 @@ import { AllDocterDetailComponent } from "./all-docter-detail/all-docter-detail-
 
 const routes: Routes = [
     { path: 'docter-availability', component: DocterAvailabilityComponent },
-    { path: 'all-docter', component: AllDocterDetailComponent }
+    { path: 'all-doctor', component: AllDocterDetailComponent }
 ];
 
 @NgModule({

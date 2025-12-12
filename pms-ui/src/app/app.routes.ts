@@ -12,7 +12,7 @@ export const routes: Routes = [
     }, {
         path: 'appointment', loadChildren: () => import('./component/appointment/appointment.module').then(m => m.AppointmentModule)
     }, {
-        path: 'docter', loadChildren: () => import('./component/docter/docter.module').then(m => m.DocterModule)
+        path: 'doctor', loadChildren: () => import('./component/docter/docter.module').then(m => m.DocterModule)
     }, {
         path: 'patient', loadChildren: () => import('./component/patient/patient.module').then(m => m.PatientModule)
     }
