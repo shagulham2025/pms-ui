@@ -24,6 +24,9 @@ export class AllAppointmentComponent {
     { doctor: 'Dr. Jones', department: 'Dermatology', time: '2:30 PM', date: 'Nov 1, 2023', ref: '#123457' }
   ];
 
+  bookingQueue: Appointment[] = [];
+  processingQueue = false;
+
   constructor(private dialog: MatDialog) { }
 
   openBookingDialog(): void {
@@ -45,8 +48,31 @@ export class AllAppointmentComponent {
         time: result.time,
         ref: `#${Math.floor(Math.random() * 900000 + 100000)}`
       };
-      this.upcomingAppointments.unshift(appt);
+      this.enqueueBooking(appt);
     });
+  }
+
+  enqueueBooking(appt: Appointment): void {
+    this.bookingQueue.push(appt);
+    this.processQueue();
+  }
+
+  private async processQueue(): Promise<void> {
+    if (this.processingQueue) return;
+    this.processingQueue = true;
+    while (this.bookingQueue.length) {
+      const appt = this.bookingQueue.shift()!;
+      try {
+        await this.saveAppointment(appt);
+        this.upcomingAppointments.unshift(appt);
+      } catch (e) {
+      }
+    }
+    this.processingQueue = false;
+  }
+
+  private saveAppointment(appt: Appointment): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, 300));
   }
 
   editAppointment(index: number): void {

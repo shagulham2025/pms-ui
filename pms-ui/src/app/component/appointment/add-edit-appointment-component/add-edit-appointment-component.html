@@ -26,10 +26,8 @@
 		</mat-form-field>
 
 		<mat-form-field appearance="outline" class="half">
-			<mat-label>Select Time Slot</mat-label>
-			<mat-select formControlName="time">
-				<mat-option *ngFor="let t of timeslots" [value]="t">{{ t }}</mat-option>
-			</mat-select>
+			<mat-label>Select Time</mat-label>
+			<input matInput type="time" formControlName="time">
 		</mat-form-field>
 	</div>
 

@@ -7,9 +7,7 @@
 	</div>
 
 	<div class="appointments-list">
-		@if (upcomingAppointments.length === 0) {
-		<div>No upcoming appointments.</div>
-		}
+		<div *ngIf="upcomingAppointments.length === 0">No upcoming appointments.</div>
 		<div class="appointment-card" *ngFor="let appt of upcomingAppointments; let i = index">
 			<div class="left">
 				<div class="doctor">{{ appt.doctor }}</div>
