@@ -30,8 +30,8 @@ declare var $: any;
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class App {
-
   sidebarOpen = false;
+  showShell = true;
 
   menuItems = [
     { label: 'Dashboard', icon: 'fa fa-bar-chart', route: '/home/dashboard' },
@@ -44,13 +44,30 @@ export class App {
     { label: 'Pharmacy', icon: 'fa fa-medkit', route: '/pharmacy' }
   ];
 
-  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object, private prof_dialog: MatDialog) { }
+  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object, private prof_dialog: MatDialog) {
+    // hide header/sidebar/footer on login route
+    this.router.events.subscribe((ev: any) => {
+      const navEndName = 'NavigationEnd';
+      if (ev && ev.constructor && ev.constructor.name === navEndName) {
+        const url = ev.urlAfterRedirects || ev.url;
+        // hide shell for any /auth/* routes
+        this.showShell = !(url && url.startsWith && url.startsWith('/auth'));
+      }
+    });
+    // initial check
+    try {
+      const u = this.router.url;
+      this.showShell = !(u && u.startsWith && u.startsWith('/auth'));
+    } catch (e) { }
+  }
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
   }
 
   logout_() {
+    // clear auth and navigate to login
+    try { const { AuthService } = (window as any); } catch {}
     this.router.navigateByUrl("login")
   }
   profile_() {

@@ -1,7 +1,8 @@
-<div class="g-grid">
+<ng-container *ngIf="showShell; else authOnly">
+  <div class="g-grid">
 
-  <!-- TOPBAR -->
-  <nav class="navbar navbar-dark px-3">
+    <!-- TOPBAR -->
+    <nav *ngIf="showShell" class="navbar navbar-dark px-3">
     <button class="btn btn-light d-md-none me-2" (click)="toggleSidebar()">
       ☰
     </button>
@@ -23,7 +24,7 @@
   <div class="d-flex flex-grow-1">
 
     <!-- SIDEBAR -->
-    <div [class.show]="sidebarOpen" class="sidebar p-3">
+    <div *ngIf="showShell" [class.show]="sidebarOpen" class="sidebar p-3">
       <h5 style="visibility: hidden;">Menu</h5>
       <ul class="nav flex-column">
         @for (item of menuItems; track item.label) {
@@ -50,8 +51,15 @@
   </div>
 
   <!-- FOOTER -->
-  <footer class="bg-secondary text-white text-center p-0">
+  <footer *ngIf="showShell" class="bg-secondary text-white text-center p-0">
     © 2025 Attractive Bootstrap Layout • All Rights Reserved
   </footer>
 
-</div>
+  </div>
+</ng-container>
+
+<ng-template #authOnly>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</ng-template>

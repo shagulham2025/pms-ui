@@ -1,22 +1,31 @@
 import { NgModule } from '@angular/core';
+import { Login } from './component/configuration/login/login';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './core/auth.guard';
 
 export const routes: Routes = [
+    { path: 'login', redirectTo: 'auth/login', pathMatch: 'full' },
     {
-        path: '', loadChildren: () => import('./component/dashboard/dashboard.module').then(m => m.DashboardModule)
-    }, {
-        path: 'home', loadChildren: () => import('./component/dashboard/dashboard.module').then(m => m.DashboardModule)
+        path: 'auth', component: AuthLayoutComponent, children: [
+            { path: 'login', component: Login }
+        ]
     },
     {
-        path: 'configuration', loadChildren: () => import('./component/configuration/configuration.module').then(m => m.ConfigurationModule)
+        path: '', canActivate: [AuthGuard], loadChildren: () => import('./component/dashboard/dashboard.module').then(m => m.DashboardModule)
     }, {
-        path: 'appointment', loadChildren: () => import('./component/appointment/appointment.module').then(m => m.AppointmentModule)
+        path: 'home', canActivate: [AuthGuard], loadChildren: () => import('./component/dashboard/dashboard.module').then(m => m.DashboardModule)
+    },
+    {
+        path: 'configuration', canActivate: [AuthGuard], loadChildren: () => import('./component/configuration/configuration.module').then(m => m.ConfigurationModule)
     }, {
-        path: 'doctor', loadChildren: () => import('./component/docter/docter.module').then(m => m.DocterModule)
+        path: 'appointment', canActivate: [AuthGuard], loadChildren: () => import('./component/appointment/appointment.module').then(m => m.AppointmentModule)
     }, {
-        path: 'patient', loadChildren: () => import('./component/patient/patient.module').then(m => m.PatientModule)
+        path: 'doctor', canActivate: [AuthGuard], loadChildren: () => import('./component/docter/docter.module').then(m => m.DocterModule)
     }, {
-        path: 'pharmacy', loadChildren: () => import('./component/pharmacy/pharmacy.module').then(m => m.PharmacyModule)
+        path: 'patient', canActivate: [AuthGuard], loadChildren: () => import('./component/patient/patient.module').then(m => m.PatientModule)
+    }, {
+        path: 'pharmacy', canActivate: [AuthGuard], loadChildren: () => import('./component/pharmacy/pharmacy.module').then(m => m.PharmacyModule)
     }
 ];
 

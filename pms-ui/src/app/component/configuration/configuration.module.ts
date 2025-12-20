@@ -3,6 +3,7 @@ import { NgClass, CommonModule } from '@angular/common';
 import { ConfigurationRoutingModule } from "./configuration.routes";
 import { PropertiesComponent } from "./properties/properties-component";
 import { UsersComponent } from "./users/users-component";
+import { Login } from "./login/login";
 import { AddEditUsersComponent } from "./users/add-edit-users-component/add-edit-users-component";
 import { AddEditPropertiesComponent } from "./properties/add-edit-properties-component/add-edit-properties-component";
 import { PrescriptionComponent } from "./prescription/prescription-component";
@@ -27,6 +28,7 @@ import { ConfirmationDialog } from "../shared/confirmation-dialog/confirmation-d
 
 @NgModule({
     declarations: [
+        Login,
         PropertiesComponent,
         UsersComponent,
         PrescriptionComponent,
