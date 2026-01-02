@@ -4,10 +4,10 @@
 			<h2>Doctors</h2>
 		</div>
 		<div class="col-md-6">
-			<div style="display:flex; justify-content:flex-end; gap:8px;">
-				<input placeholder="Search..." (input)="applyFilter($event)" style="height:40px; padding:6px 8px;" />
-				<button mat-flat-button color="primary" (click)="openAddDialog()">Add Doctor</button>
-			</div>
+                <div style="display:flex; justify-content:flex-end; gap:8px;">
+                	<input placeholder="Search..." (input)="applyFilter($event)" style="height:40px; padding:6px 8px;" />
+                	<button mat-flat-button color="primary" (click)="openAddDialog()" *appHasPermission="['ROLE_CREATE_DOCTOR','ROLE_CREATE_DOCTER']">Add Doctor</button>
+                </div>
 		</div>
 	</div>
 
@@ -63,8 +63,8 @@
 							<div class="action-buttons" role="group" aria-label="row actions">
 								<button mat-icon-button color="primary" title="View" (click)="viewDoctor(d)"><mat-icon>visibility</mat-icon></button>
 								<button mat-icon-button color="primary" title="Availability" (click)="viewAvailability(d)"><mat-icon>schedule</mat-icon></button>
-								<button mat-icon-button color="accent" title="Edit" (click)="editDoctor(d)"><mat-icon>edit</mat-icon></button>
-								<button mat-icon-button color="warn" title="Delete" (click)="deleteDoctor(d)"><mat-icon>delete</mat-icon></button>
+								<button mat-icon-button color="accent" title="Edit" (click)="editDoctor(d)" *appHasPermission="['ROLE_EDIT_DOCTOR','ROLE_EDIT_DOCTER']"><mat-icon>edit</mat-icon></button>
+								<button mat-icon-button color="warn" title="Delete" (click)="deleteDoctor(d)" *appHasPermission="['ROLE_DELETE_DOCTOR','ROLE_DELETE_DOCTER']"><mat-icon>delete</mat-icon></button>
 							</div>
 						</td>
 					</ng-container>

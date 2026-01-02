@@ -5,6 +5,7 @@ import { PatientRoutingModule } from "./patient.routes";
 import { AllPatientComponent } from "./all-patient/all-patient-component";
 import { AddEditPatientComponent } from "./add-edit-patient/add-edit-patient-component";
 import { PatientDetailsComponent } from "./patient-details/patient-details-component";
+import { HasPermissionDirective } from '../shared/directives/has-permission.directive';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
@@ -27,6 +28,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     ],
     imports: [
         CommonModule,
+        HasPermissionDirective,
         FormsModule,
         ReactiveFormsModule,
         MatTableModule,

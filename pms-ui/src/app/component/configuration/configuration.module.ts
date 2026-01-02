@@ -8,6 +8,7 @@ import { AddEditUsersComponent } from "./users/add-edit-users-component/add-edit
 import { AddEditPropertiesComponent } from "./properties/add-edit-properties-component/add-edit-properties-component";
 import { PrescriptionComponent } from "./prescription/prescription-component";
 import { AddEditPrescriptionComponent } from "./prescription/add-edit-prescription-component/add-edit-prescription-component";
+import { HasPermissionDirective } from '../shared/directives/has-permission.directive';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -39,6 +40,7 @@ import { ConfirmationDialog } from "../shared/confirmation-dialog/confirmation-d
     imports: [
         ConfigurationRoutingModule,
         CommonModule,
+        HasPermissionDirective,
         MatTableModule,
         MatPaginatorModule,
         MatSortModule,

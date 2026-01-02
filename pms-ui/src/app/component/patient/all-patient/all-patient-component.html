@@ -4,10 +4,10 @@
 			<h2>Patients</h2>
 		</div>
 		<div class="col-md-6">
-			<div style="display:flex; justify-content:flex-end; gap:8px;">
-				<input placeholder="Search..." (input)="applyFilter($event)" style="height:40px; padding:6px 8px;" />
-				<button mat-flat-button color="primary" (click)="openAddDialog()">Add Patient</button>
-			</div>
+                <div style="display:flex; justify-content:flex-end; gap:8px;">
+                	<input placeholder="Search..." (input)="applyFilter($event)" style="height:40px; padding:6px 8px;" />
+                	<button mat-flat-button color="primary" (click)="openAddDialog()" *appHasPermission="'ROLE_CREATE_PATIENT'">Add Patient</button>
+                </div>
 		</div>
 	</div>
 
@@ -86,9 +86,9 @@
 							<th mat-header-cell *matHeaderCellDef class="text-center">Actions</th>
 							<td mat-cell *matCellDef="let p" class="text-center mat-column-actions">
 								<div class="action-buttons">
-									<button mat-icon-button color="primary" title="View" (click)="viewPatient(p)"><mat-icon>visibility</mat-icon></button>
-									<button mat-icon-button color="accent" title="Edit" (click)="editPatient(p)"><mat-icon>edit</mat-icon></button>
-									<button mat-icon-button color="warn" title="Delete" (click)="deletePatient(p)"><mat-icon>delete</mat-icon></button>
+									<button mat-icon-button color="primary" title="View" (click)="viewPatient(p)" *appHasPermission="'ROLE_VIEW_PATIENT'"><mat-icon>visibility</mat-icon></button>
+									<button mat-icon-button color="accent" title="Edit" (click)="editPatient(p)" *appHasPermission="'ROLE_EDIT_PATIENT'"><mat-icon>edit</mat-icon></button>
+									<button mat-icon-button color="warn" title="Delete" (click)="deletePatient(p)" *appHasPermission="'ROLE_DELETE_PATIENT'"><mat-icon>delete</mat-icon></button>
 								</div>
 							</td>
 						</ng-container>

@@ -4,6 +4,7 @@ import { DocterRoutingModule } from "./docter.routes";
 import { DocterAvailabilityComponent } from "./docter-availability/docter-availability-component";
 import { AllDocterDetailComponent } from "./all-docter-detail/all-docter-detail-component";
 import { AddEditDocterComponent } from "./add-edit-docter/add-edit-docter-component";
+import { HasPermissionDirective } from '../shared/directives/has-permission.directive';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
@@ -26,6 +27,7 @@ import { MatSelectModule } from '@angular/material/select';
     ],
     imports: [
         CommonModule,
+        HasPermissionDirective,
         FormsModule,
         ReactiveFormsModule,
         MatTableModule,
