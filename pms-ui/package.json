@@ -34,6 +34,10 @@
     "@angular/router": "^20.3.0",
     "@angular/ssr": "^20.3.3",
     "@fortawesome/fontawesome-free": "^7.1.0",
+    "@ngrx/effects": "^16.3.0",
+    "@ngrx/entity": "^16.3.0",
+    "@ngrx/store": "^16.3.0",
+    "@ngrx/store-devtools": "^16.3.0",
     "bootstrap": "^5.3.8",
     "express": "^5.1.0",
     "font-awesome": "^4.7.0",
@@ -41,6 +45,15 @@
     "popper.js": "^1.16.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
+  },
+  "dependencies_meta": {
+    "note": "Run `npm install` after adding these packages. Versions chosen as starting points; adjust as needed for compatibility."
+  },
+  "ngrx": {
+    "@ngrx/store": "^16.0.0",
+    "@ngrx/effects": "^16.0.0",
+    "@ngrx/entity": "^16.0.0",
+    "@ngrx/store-devtools": "^16.0.0"
   },
   "devDependencies": {
     "@angular/build": "^20.3.3",

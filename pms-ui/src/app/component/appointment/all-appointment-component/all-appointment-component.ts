@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditAppointmentComponent } from '../add-edit-appointment-component/add-edit-appointment-component';
 import { ConfirmationDialog } from '../../shared/confirmation-dialog/confirmation-dialog';
@@ -54,25 +56,33 @@ export class AllAppointmentComponent {
 
   enqueueBooking(appt: Appointment): void {
     this.bookingQueue.push(appt);
-    this.processQueue();
-  }
-
-  private async processQueue(): Promise<void> {
-    if (this.processingQueue) return;
-    this.processingQueue = true;
-    while (this.bookingQueue.length) {
-      const appt = this.bookingQueue.shift()!;
-      try {
-        await this.saveAppointment(appt);
-        this.upcomingAppointments.unshift(appt);
-      } catch (e) {
-      }
+    if (!this.processingQueue) {
+      this.processingQueue = true;
+      this.processNext();
     }
-    this.processingQueue = false;
   }
 
-  private saveAppointment(appt: Appointment): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, 300));
+  private processNext(): void {
+    const appt = this.bookingQueue.shift();
+    if (!appt) {
+      this.processingQueue = false;
+      return;
+    }
+
+    this.saveAppointment(appt).subscribe({
+      next: () => {
+        this.upcomingAppointments.unshift(appt);
+        this.processNext();
+      },
+      error: () => {
+        // continue processing even if one save fails
+        this.processNext();
+      }
+    });
+  }
+
+  private saveAppointment(appt: Appointment) {
+    return of(void 0).pipe(delay(300));
   }
 
   editAppointment(index: number): void {
