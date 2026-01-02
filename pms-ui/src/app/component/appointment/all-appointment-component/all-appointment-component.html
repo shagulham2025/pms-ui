@@ -1,9 +1,9 @@
 <div class="appointments-page">
 	<div class="page-header">
 		<h2>Upcoming Appointments</h2>
-		<button class="btn btn-primary col-md-3" style="height: 45px;" (click)="openBookingDialog()">
-        Book New Appointment
-    	</button>
+		<button class="btn btn-primary col-md-3" style="height: 45px;" (click)="openBookingDialog()" *appHasPermission="'ROLE_CREATE_APPOINTMENT'">
+	        Book New Appointment
+	    	</button>
 	</div>
 
 	<div class="appointments-list">
@@ -18,10 +18,10 @@
 				<div class="date">{{ appt.date }}</div>
 			</div>
 			<div class="actions-right">
-				<button mat-icon-button aria-label="Edit" (click)="editAppointment(i)">
+				<button mat-icon-button aria-label="Edit" (click)="editAppointment(i)" *appHasPermission="'ROLE_EDIT_APPOINTMENT'">
 					<mat-icon>edit</mat-icon>
 				</button>
-				<button mat-icon-button color="warn" aria-label="Delete" (click)="deleteAppointment(i)">
+				<button mat-icon-button color="warn" aria-label="Delete" (click)="deleteAppointment(i)" *appHasPermission="'ROLE_DELETE_APPOINTMENT'">
 					<mat-icon>delete</mat-icon>
 				</button>
 			</div>

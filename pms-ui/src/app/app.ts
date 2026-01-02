@@ -1,4 +1,5 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, Inject, NO_ERRORS_SCHEMA, OnDestroy, PLATFORM_ID } from '@angular/core';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { ConfigurationModule } from './component/configuration/configuration.module';
 import { AppointmentModule } from './component/appointment/appointment.module';
@@ -19,14 +20,15 @@ declare var $: any;
 @Component({
   selector: 'app-root',
   standalone: true,
+  providers: [ { provide: LocationStrategy, useClass: HashLocationStrategy } ],
   imports: [
     CommonModule,
     RouterOutlet,
     RouterLink,
     ConfigurationModule,
-    AppointmentModule
-    , MatMenuModule
-    , MatButtonModule,
+    AppointmentModule, 
+    MatMenuModule, 
+    MatButtonModule,
     RouterModule
   ],
   templateUrl: './app.html',

@@ -14,6 +14,7 @@ import { AppointmentRoutingModule } from './appointment.routes';
 import { AddEditAppointmentComponent } from './add-edit-appointment-component/add-edit-appointment-component';
 import { AllAppointmentComponent } from './all-appointment-component/all-appointment-component';
 import { ConfirmationDialog } from '../shared/confirmation-dialog/confirmation-dialog';
+import { HasPermissionDirective } from '../shared/directives/has-permission.directive';
 
 @NgModule({
     declarations: [
@@ -23,6 +24,7 @@ import { ConfirmationDialog } from '../shared/confirmation-dialog/confirmation-d
     imports: [
         AppointmentRoutingModule,
         CommonModule,
+        HasPermissionDirective,
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
