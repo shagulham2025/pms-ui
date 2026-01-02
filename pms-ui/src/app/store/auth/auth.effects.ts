@@ -34,9 +34,30 @@ export class AuthEffects {
         tap(() => {
           try {
             localStorage.removeItem('pms_token');
+            localStorage.removeItem('pms_user');
+            localStorage.removeItem('pms_menu');
+            localStorage.removeItem('pms_role_names');
           } catch (e) {}
         })
       )),
+    { dispatch: false }
+  );
+
+  // persist user/menu/roles when loaded so we can rehydrate on reload
+  persistUserDetails$ = createEffect(
+    () =>
+      defer(() =>
+        this.actions$.pipe(
+          ofType(AuthActions.loadUserDetailsSuccess),
+          tap(({ menuDetails, user, roleNames }) => {
+            try {
+              localStorage.setItem('pms_user', JSON.stringify(user));
+              localStorage.setItem('pms_menu', JSON.stringify(menuDetails || []));
+              localStorage.setItem('pms_role_names', JSON.stringify(roleNames || []));
+            } catch (e) {}
+          })
+        )
+      ),
     { dispatch: false }
   );
 

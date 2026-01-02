@@ -50,6 +50,7 @@ export class App implements OnDestroy {
         const url = ev.urlAfterRedirects || ev.url;
         // hide shell for any /auth/* routes
         this.showShell = !(url && url.startsWith && url.startsWith('/auth'));
+        try { localStorage.setItem('pms_last_route', url); } catch (e) {}
       }
     });
     // initial check

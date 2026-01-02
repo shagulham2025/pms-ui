@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../store/auth/auth.actions';
@@ -15,13 +16,14 @@ export class AuthService {
   private refreshSubject = new Subject<string | null>();
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem(this.TOKEN_KEY);
+    if (!isPlatformBrowser(this.platformId)) return false;
+    try { return !!localStorage.getItem(this.TOKEN_KEY); } catch (e) { return false; }
   }
 
   // observable for components to react to auth state
   isAuthenticated$: Observable<boolean>;
 
-  constructor(private http: HttpClient, private store: Store, private api: ApiService) {
+  constructor(private http: HttpClient, private store: Store, private api: ApiService, @Inject(PLATFORM_ID) private platformId: Object) {
     this.isAuthenticated$ = this.store.select(selectIsAuthenticated);
   }
 
