@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Inject, NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Inject, NO_ERRORS_SCHEMA, OnDestroy, PLATFORM_ID } from '@angular/core';
 import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { ConfigurationModule } from './component/configuration/configuration.module';
 import { AppointmentModule } from './component/appointment/appointment.module';
@@ -7,6 +7,10 @@ import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { selectMenuDetails } from './store/auth/auth.selectors';
 import { ChangePassword } from './component/configuration/change-password/change-password';
 import { Profile } from './component/configuration/profile/profile';
 
@@ -29,22 +33,14 @@ declare var $: any;
   styleUrl: './app.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
-export class App {
+export class App implements OnDestroy {
   sidebarOpen = false;
   showShell = true;
+  private destroy$ = new Subject<void>();
 
-  menuItems = [
-    { label: 'Dashboard', icon: 'fa fa-bar-chart', route: '/home/dashboard' },
-    { label: 'Patients', icon: 'fa fa-bed', route: '/patient/all-patient' },
-    { label: 'Appointments', icon: 'fa fa-calendar', route: '/appointment/all-appointment' },
-    { label: 'Doctor', icon: 'fa fa-user-md', route: '/doctor/all-doctor' },
-    { label: 'Prescription', icon: 'fa fa-book', route: '/configuration/prescription' },
-    { label: 'User', icon: 'fa fa-user', route: '/configuration/users' },
-    { label: 'Properties', icon: 'fa fa-building', route: '/configuration/properties' },
-    { label: 'Pharmacy', icon: 'fa fa-medkit', route: '/pharmacy' }
-  ];
+  menuItems: { label: string; icon: string; route: string }[] = [];
 
-  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object, private prof_dialog: MatDialog) {
+  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object, private prof_dialog: MatDialog, private store: Store) {
     // hide header/sidebar/footer on login route
     this.router.events.subscribe((ev: any) => {
       const navEndName = 'NavigationEnd';
@@ -59,6 +55,22 @@ export class App {
       const u = this.router.url;
       this.showShell = !(u && u.startsWith && u.startsWith('/auth'));
     } catch (e) { }
+
+    // subscribe to menu details from store and transform into sidebar items
+    this.store.select(selectMenuDetails).pipe(takeUntil(this.destroy$)).subscribe((md) => {
+      if (md && md.length) {
+        this.menuItems = md.map((m: any) => ({
+          label: m.displayName || m.menuName || m.accessLevel || 'Menu',
+          icon: m.displayIcon || '',
+          route: m.routerUrl || '/'
+        }));
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   toggleSidebar() {

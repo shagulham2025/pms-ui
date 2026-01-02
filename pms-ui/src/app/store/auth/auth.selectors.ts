@@ -17,3 +17,18 @@ export const selectAuthLoading = createSelector(
 	selectAuthState,
 	(s: AuthState | null | undefined): boolean => !!s && s.loading
 );
+
+export const selectUserDetails = createSelector(
+	selectAuthState,
+	(s: AuthState | null | undefined): any | null => s?.user ?? null
+);
+
+export const selectMenuDetails = createSelector(
+	selectAuthState,
+	(s: AuthState | null | undefined): any[] => s?.menuDetails ?? []
+);
+
+export const selectRoleNames = createSelector(
+	selectAuthState,
+	(s: AuthState | null | undefined): string[] => s?.roleNames ?? []
+);

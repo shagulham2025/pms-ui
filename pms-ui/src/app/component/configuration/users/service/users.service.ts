@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { ApiService } from '../../../../core/api.service';
 import { User } from '../../../../model/user';
 
 @Injectable({ providedIn: 'root' })
@@ -12,13 +13,13 @@ export class UsersService {
 
   private readonly mockUrl = '/assert/mock-data/user-data.json';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private api: ApiService) {
     this.loadInitial();
   }
 
   private loadInitial(): void {
-    this.http.get<User[]>(this.mockUrl).pipe(
-      catchError(() => of([])),
+    this.api.get<User[]>(this.mockUrl, { skipAuth: true }).pipe(
+      catchError(() => of([] as User[])),
       tap(users => this.usersSubject.next(users))
     ).subscribe();
   }

@@ -4,13 +4,15 @@ import { Observable, throwError, Subject, of } from 'rxjs';
 import { catchError, finalize, tap, filter, take, switchMap, map, retryWhen, mergeMap, delay } from 'rxjs/operators';
 import { HttpInterceptorService } from '../http/http-interceptor.service';
 import { API_BASE } from '../../config/api.config';
+import { AuthService } from '../auth.service';
+import { ApiService } from '../api.service';
 
 @Injectable()
 export class UnifiedInterceptor implements HttpInterceptor {
   private refreshInProgress = false;
   private refreshSubject = new Subject<string | null>();
 
-  constructor(private helper: HttpInterceptorService, private http: HttpClient) {}
+  constructor(private helper: HttpInterceptorService, private http: HttpClient, private auth: AuthService, private api: ApiService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const started = Date.now();
@@ -19,58 +21,81 @@ export class UnifiedInterceptor implements HttpInterceptor {
     const url = req.url.startsWith('http') ? req.url : `${API_BASE}${req.url}`;
     let forwardReq = req.clone({ url });
 
-    // Attach auth header if available
-    forwardReq = this.helper.attachAuthHeader(forwardReq);
-
-    // Log request
-    this.helper.logRequest(forwardReq);
-
-    return next.handle(forwardReq).pipe(
-      // retry transient network/server errors up to 2 times with exponential backoff
-      retryWhen((errors) => errors.pipe(
-        mergeMap((err: any, i: number) => {
-          // do not retry for 401 (handled elsewhere) or client errors
-          if (err instanceof HttpErrorResponse) {
-            if (err.status === 401) {
-              return throwError(() => err);
+    // If this request explicitly asks to skip refresh handling, proceed immediately
+    if (forwardReq.headers.has('X-Skip-Refresh')) {
+      forwardReq = this.helper.attachAuthHeader(forwardReq);
+      this.helper.logRequest(forwardReq);
+      return next.handle(forwardReq).pipe(
+        retryWhen((errors) => errors.pipe(
+          mergeMap((err: any, i: number) => {
+            if (err instanceof HttpErrorResponse) {
+              if (err.status === 401) { return throwError(() => err); }
+              if (err.status >= 400 && err.status < 500 && err.status !== 0) { return throwError(() => err); }
             }
-            if (err.status >= 400 && err.status < 500 && err.status !== 0) {
-              return throwError(() => err);
+            const attempt = i + 1;
+            if (attempt > 2) { return throwError(() => err); }
+            const backoff = Math.pow(2, attempt) * 500;
+            return of(err).pipe(delay(backoff));
+          })
+        )),
+        tap({
+          next: (event) => {
+            if (event instanceof HttpResponse) {
+              const elapsed = Date.now() - started;
+              this.helper.logResponse(event, elapsed);
+              try {
+                const body: any = event.body as any;
+                if (body && body.accessToken) { this.helper.setAuthToken(body.accessToken); }
+              } catch (e) {}
             }
           }
-          const attempt = i + 1;
-          if (attempt > 2) {
-            return throwError(() => err);
-          }
-          const backoff = Math.pow(2, attempt) * 500;
-          return of(err).pipe(delay(backoff));
-        })
-      )),
-      tap({
-        next: (event) => {
-          if (event instanceof HttpResponse) {
-            const elapsed = Date.now() - started;
-            this.helper.logResponse(event, elapsed);
-            // capture accessToken from response bodies (if backend returns it)
-            try {
-              const body: any = event.body as any;
-              if (body && body.accessToken) {
-                this.helper.setAuthToken(body.accessToken);
+        }),
+        catchError((err: unknown) => {
+          if (err instanceof HttpErrorResponse && err.status === 401) { return this.handle401(forwardReq, next, err); }
+          this.helper.handleError(err);
+          return throwError(() => err);
+        }),
+        finalize(() => { })
+      );
+    }
+
+    // proactively ensure token is fresh (refresh if expiring within next 15 minutes)
+    return this.auth.ensureValidToken(15).pipe(
+      switchMap(() => {
+        forwardReq = this.helper.attachAuthHeader(forwardReq);
+        this.helper.logRequest(forwardReq);
+        return next.handle(forwardReq).pipe(
+          retryWhen((errors) => errors.pipe(
+            mergeMap((err: any, i: number) => {
+              if (err instanceof HttpErrorResponse) {
+                if (err.status === 401) { return throwError(() => err); }
+                if (err.status >= 400 && err.status < 500 && err.status !== 0) { return throwError(() => err); }
               }
-            } catch (e) {}
-          }
-        }
-      }),
-      catchError((err: unknown) => {
-        if (err instanceof HttpErrorResponse && err.status === 401) {
-          // attempt refresh and retry
-          return this.handle401(forwardReq, next, err);
-        }
-        this.helper.handleError(err);
-        return throwError(() => err);
-      }),
-      finalize(() => {
-        // reserved for any cleanup or telemetry
+              const attempt = i + 1;
+              if (attempt > 2) { return throwError(() => err); }
+              const backoff = Math.pow(2, attempt) * 500;
+              return of(err).pipe(delay(backoff));
+            })
+          )),
+          tap({
+            next: (event) => {
+              if (event instanceof HttpResponse) {
+                const elapsed = Date.now() - started;
+                this.helper.logResponse(event, elapsed);
+                try {
+                  const body: any = event.body as any;
+                  if (body && body.accessToken) { this.helper.setAuthToken(body.accessToken); }
+                } catch (e) {}
+              }
+            }
+          }),
+          catchError((err: unknown) => {
+            if (err instanceof HttpErrorResponse && err.status === 401) { return this.handle401(forwardReq, next, err); }
+            this.helper.handleError(err);
+            return throwError(() => err);
+          }),
+          finalize(() => { })
+        );
       })
     );
   }
@@ -92,9 +117,11 @@ export class UnifiedInterceptor implements HttpInterceptor {
     }
 
     this.refreshInProgress = true;
-    // trigger refresh
-    const refreshUrl = `${API_BASE}/auth/refresh`;
-    this.http.post<{ accessToken: string }>(refreshUrl, {}).pipe(
+    // trigger refresh (include stored refresh token if available)
+    const refreshUrl = `/auth/refresh`;
+    const storedRefresh = this.auth.getStoredRefreshToken ? this.auth.getStoredRefreshToken() : null;
+    const body = storedRefresh ? { refreshToken: storedRefresh } : {};
+    this.api.post<{ accessToken?: string; refreshToken?: string; tokenType?: string }>(refreshUrl, body, { skipAuth: true, skipRefresh: true }).pipe(
       map(res => res?.accessToken ?? null),
       catchError(() => of(null)),
       finalize(() => { this.refreshInProgress = false; })
