@@ -51,6 +51,10 @@ const initAuth = () => {
           }, 0);
         }
       } catch (e) {}
+      try {
+        // signal that rehydration completed (browser only)
+        try { (window as any).__PMS_REHYDRATED__ = true; } catch (e) {}
+      } catch (e) {}
     } catch (e) {
       console.warn('Failed to rehydrate auth', e);
     }
